@@ -122,6 +122,12 @@ function connectChannel() {
 			withRenotes: props.withRenotes,
 			withFiles: props.onlyFiles ? true : undefined,
 		});
+	} else if (props.src === 'vmimi') {
+		connection = stream.useChannel('vmimiRelayTimeline', {
+			withRenotes: props.withRenotes,
+			withFiles: props.onlyFiles ? true : undefined,
+			withReplies: props.withReplies,
+		});
 	} else if (props.src === 'mentions') {
 		connection = stream.useChannel('main');
 		connection.on('mention', prepend);
@@ -188,6 +194,13 @@ function updatePaginationQuery() {
 			withReplies: props.withReplies,
 			withFiles: props.onlyFiles ? true : undefined,
 		};
+	} else if (props.src === 'vmimi') {
+		endpoint = 'notes/vmimi-relay-timeline';
+		query = {
+			withRenotes: props.withRenotes,
+			withFiles: props.onlyFiles ? true : undefined,
+			withReplies: props.withReplies,
+		}
 	} else if (props.src === 'global') {
 		endpoint = 'notes/global-timeline';
 		query = {
