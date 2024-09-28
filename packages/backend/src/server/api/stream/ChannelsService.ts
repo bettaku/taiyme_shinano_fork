@@ -10,6 +10,7 @@ import { LocalTimelineChannelService } from './channels/local-timeline.js';
 import { HomeTimelineChannelService } from './channels/home-timeline.js';
 import { GlobalTimelineChannelService } from './channels/global-timeline.js';
 import { VmimiRelayTimelineChannelService } from './channels/vmimi-relay-timeline.js';
+import { VmimiHybridTimelineChannelService } from './channels/vmimi-hybrid-timeline.js';
 import { MainChannelService } from './channels/main.js';
 import { ChannelChannelService } from './channels/channel.js';
 import { AdminChannelService } from './channels/admin.js';
@@ -33,6 +34,7 @@ export class ChannelsService {
 		private hybridTimelineChannelService: HybridTimelineChannelService,
 		private globalTimelineChannelService: GlobalTimelineChannelService,
 		private vmimiRelayTimelineChannelService: VmimiRelayTimelineChannelService,
+		private vmimiHybridTimelineChannelService: VmimiHybridTimelineChannelService,
 		private userListChannelService: UserListChannelService,
 		private hashtagChannelService: HashtagChannelService,
 		private roleTimelineChannelService: RoleTimelineChannelService,
@@ -56,6 +58,7 @@ export class ChannelsService {
 			case 'hybridTimeline': return this.hybridTimelineChannelService;
 			case 'globalTimeline': return this.globalTimelineChannelService;
 			case 'vmimiRelayTimeline': return this.vmimiRelayTimelineChannelService;
+			case 'vmimiHybridTimeline': return this.vmimiHybridTimelineChannelService;
 			case 'userList': return this.userListChannelService;
 			case 'hashtag': return this.hashtagChannelService;
 			case 'roleTimeline': return this.roleTimelineChannelService;

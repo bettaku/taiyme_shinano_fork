@@ -19,6 +19,7 @@ class VmimiRelayTimelineChannel extends Channel {
 	public static shouldShare = false;
 	public static requireCredential = false as const;
 	private withRenotes: boolean;
+	private withReplies: boolean;
 	private withFiles: boolean;
 
 	constructor(
@@ -40,6 +41,7 @@ class VmimiRelayTimelineChannel extends Channel {
 		if (!policies.gtlAvailable) return;
 
 		this.withRenotes = !!(params.withRenotes ?? true);
+		this.withReplies = !!(params.withReplies ?? true);
 		this.withFiles = !!(params.withFiles ?? false);
 
 		// Subscribe events
@@ -63,6 +65,11 @@ class VmimiRelayTimelineChannel extends Channel {
 				const myRenoteReaction = await this.noteEntityService.populateMyReaction(note.renote, this.user.id);
 				note.renote.myReaction = myRenoteReaction;
 			}
+		}
+
+		if (note.reply && this.user && !this.following[note.userId]?.withReplies && !this.withReplies) {
+			const reply = note.reply;
+			if (reply.userId !== this.user.id && note.userId !== this.user.id && reply.userId !== note.userId) return;
 		}
 
 		this.connection.cacheNote(note);

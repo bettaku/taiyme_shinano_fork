@@ -122,6 +122,18 @@ export type Channels = {
 		};
 		receives: null;
 	};
+	vmimiHybridTimeline: {
+		params: {
+			withRenotes?: boolean;
+			withReplies?: boolean;
+			withFiles?: boolean;
+			withLocalOnly?: boolean;
+		};
+		events: {
+			note: (payload: Note) => void;
+		};
+		receives: null;
+	};
 	userList: {
 		params: {
 			listId: string;

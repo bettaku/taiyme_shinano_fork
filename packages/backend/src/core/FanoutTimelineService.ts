@@ -38,6 +38,12 @@ export type FanoutTimelineName =
 	// role timelines
 	| `roleTimeline:${string}` // any notes are included
 
+	// vmimi relay timeline
+	| 'vmimiRelayTimeline' // replies not included
+	| 'vmimiRelayTimelineWithFiles' // only notes with files are included
+	| 'vmimiRelayTimelineWithReplies' // only replies are included
+	| `vmimiRelayTimelineWithReplyTo:${string}` // Only replies to specific local user are included. Parameter is reply user id.
+
 @Injectable()
 export class FanoutTimelineService {
 	constructor(
