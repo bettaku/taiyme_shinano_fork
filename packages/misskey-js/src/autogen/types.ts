@@ -4784,6 +4784,7 @@ export type components = {
       usersCount: number;
     });
     RolePolicies: {
+      vrtlAvailable: boolean;
       gtlAvailable: boolean;
       ltlAvailable: boolean;
       canPublicNote: boolean;

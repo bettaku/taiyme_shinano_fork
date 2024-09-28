@@ -46,7 +46,7 @@ export function isAvailableBasicTimeline(timeline: BasicTimelineType | undefined
 		case 'global':
 			return ($i == null && instance.policies.gtlAvailable) || ($i != null && $i.policies.gtlAvailable);
 		case 'vmimi':
-			return ($i == null && instance.policies.gtlAvailable) || ($i != null && $i.policies.gtlAvailable);
+			return ($i == null && instance.policies.vrtlAvailable) || ($i != null && $i.policies.vrtlAvailable);
 		default:
 			return false;
 	}
