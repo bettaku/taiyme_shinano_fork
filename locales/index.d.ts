@@ -5371,6 +5371,10 @@ export interface Locale extends ILocale {
              */
             readonly "global": string;
             /**
+             * VirtualKemomimiリレーに参加しているサーバーからの投稿を見られます。
+             */
+            readonly "vmimi": string;
+            /**
              * それぞれのタイムラインは、画面上部でいつでも切り替えられます。
              */
             readonly "description2": string;
@@ -5507,6 +5511,10 @@ export interface Locale extends ILocale {
          * グローバルタイムラインでは、接続している他のすべてのサーバーからの投稿を見られます。
          */
         readonly "global": string;
+        /**
+         * Vミミタイムラインでは、VirtualKemomimiリレーに参加しているサーバーからの投稿を見られます。
+         */
+        readonly "vmimi": string;
     };
     readonly "_serverRules": {
         /**
@@ -6630,6 +6638,10 @@ export interface Locale extends ILocale {
             readonly "high": string;
         };
         readonly "_options": {
+            /**
+             * Vミミタイムラインの閲覧
+             */
+            readonly "vrtlAvailable": string;
             /**
              * グローバルタイムラインの閲覧
              */
@@ -8789,6 +8801,10 @@ export interface Locale extends ILocale {
          * グローバル
          */
         readonly "global": string;
+        /**
+         * Vミミ
+         */
+        readonly "vmimi": string;
     };
     readonly "_play": {
         /**
