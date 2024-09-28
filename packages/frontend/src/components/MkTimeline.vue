@@ -200,7 +200,7 @@ function updatePaginationQuery() {
 			withRenotes: props.withRenotes,
 			withFiles: props.onlyFiles ? true : undefined,
 			withReplies: props.withReplies,
-		}
+		};
 	} else if (props.src === 'global') {
 		endpoint = 'notes/global-timeline';
 		query = {

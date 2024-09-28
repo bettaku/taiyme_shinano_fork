@@ -41,7 +41,7 @@ export class VmimiRelayService {
 
 	@bindThis
 	public chechForUpdateInstanceList() {
-		if (this.updatePromise == null &&  this.nextUpdate < Date.now()) {
+		if (this.updatePromise == null && this.nextUpdate < Date.now()) {
 			this.updatePromise = this.updateInstanceList().finally(() => this.updatePromise = null);
 		}
 	}
