@@ -21821,22 +21821,6 @@ export type operations = {
     requestBody: {
       content: {
         'application/json': {
-          /** @default 10 */
-          limit?: number;
-          /** Format: misskey:id */
-          sinceId?: string;
-          /** Format: misskey:id */
-          untilId?: string;
-          sinceDate?: number;
-          untilDate?: number;
-          /** @default false */
-          allowPartial?: boolean;
-          /** @default true */
-          includeMyRenotes?: boolean;
-          /** @default true */
-          includeRenotedMyNotes?: boolean;
-          /** @default true */
-          includeLocalRenotes?: boolean;
           /** @default false */
           withFiles?: boolean;
           /** @default true */
@@ -21845,6 +21829,16 @@ export type operations = {
           withReplies?: boolean;
           /** @default true */
           withLocalOnly?: boolean;
+          /** @default 10 */
+          limit?: number;
+          /** @default true */
+          allowPartial?: boolean;
+          /** Format: misskey:id */
+          sinceId?: string;
+          /** Format: misskey:id */
+          untilId?: string;
+          sinceDate?: number;
+          untilDate?: number;
         };
       };
     };
