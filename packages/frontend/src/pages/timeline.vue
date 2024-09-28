@@ -82,7 +82,7 @@ const localSocialTLFilterSwitchStore = ref<'withReplies' | 'onlyFiles' | false>(
 const withReplies = computed<boolean>({
 	get: () => {
 		if (!$i) return false;
-		if (['local', 'social'].includes(src.value) && localSocialTLFilterSwitchStore.value === 'onlyFiles') {
+		if (['local', 'social', 'vmimi'].includes(src.value) && localSocialTLFilterSwitchStore.value === 'onlyFiles') {
 			return false;
 		} else {
 			return defaultStore.reactiveState.tl.value.filter.withReplies;
@@ -92,7 +92,7 @@ const withReplies = computed<boolean>({
 });
 const onlyFiles = computed<boolean>({
 	get: () => {
-		if (['local', 'social'].includes(src.value) && localSocialTLFilterSwitchStore.value === 'withReplies') {
+		if (['local', 'social', 'vmimi'].includes(src.value) && localSocialTLFilterSwitchStore.value === 'withReplies') {
 			return false;
 		} else {
 			return defaultStore.reactiveState.tl.value.filter.onlyFiles;

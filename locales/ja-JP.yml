@@ -1350,6 +1350,7 @@ _initialTutorial:
     local: "このサーバーにいるユーザー全員の投稿を見られます。"
     social: "ホームタイムラインとローカルタイムラインの投稿が両方表示されます。"
     global: "接続している他のすべてのサーバーからの投稿を見られます。"
+    vmimi: "VirtualKemomimiリレーに参加しているサーバーからの投稿を見られます。"
     description2: "それぞれのタイムラインは、画面上部でいつでも切り替えられます。"
     description3: "その他にも、リストタイムラインやチャンネルタイムラインなどがあります。詳しくは{link}をご覧ください。"
   _postNote:
@@ -1389,6 +1390,7 @@ _timelineDescription:
   local: "ローカルタイムラインでは、このサーバーにいるユーザー全員の投稿を見られます。"
   social: "ソーシャルタイムラインには、ホームタイムラインとローカルタイムラインの投稿が両方表示されます。"
   global: "グローバルタイムラインでは、接続している他のすべてのサーバーからの投稿を見られます。"
+  vmimi: "Vミミタイムラインでは、VirtualKemomimiリレーに参加しているサーバーからの投稿を見られます。"
 
 _serverRules:
   description: "新規登録前に表示する、サーバーの簡潔なルールを設定します。内容は利用規約の要約とすることを推奨します。"
@@ -1714,6 +1716,7 @@ _role:
     middle: "中"
     high: "高"
   _options:
+    vrtlAvailable: "Vミミタイムラインの閲覧"
     gtlAvailable: "グローバルタイムラインの閲覧"
     ltlAvailable: "ローカルタイムラインの閲覧"
     canPublicNote: "パブリック投稿の許可"
@@ -2319,6 +2322,7 @@ _timelines:
   local: "ローカル"
   social: "ソーシャル"
   global: "グローバル"
+  vmimi: "Vミミ"
 
 _play:
   new: "Playの作成"
