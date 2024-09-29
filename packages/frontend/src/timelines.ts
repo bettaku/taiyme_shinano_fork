@@ -51,7 +51,7 @@ export function isAvailableBasicTimeline(timeline: BasicTimelineType | undefined
 		case 'vmimi':
 			return ($i == null && instance.policies.vrtlAvailable) || ($i != null && $i.policies.vrtlAvailable);
 		case 'vmimiHybrid':
-			return ($i == null &&instance.policies.vrtlAvailable) || ($i != null && $i.policies.vrtlAvailable);
+			return ($i == null && instance.policies.vrtlAvailable) || ($i != null && $i.policies.vrtlAvailable);
 		default:
 			return false;
 	}

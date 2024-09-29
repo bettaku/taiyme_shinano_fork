@@ -75,7 +75,7 @@ const withRenotes = computed<boolean>({
 const withLocalOnly = computed<boolean>({
 	get: () => defaultStore.reactiveState.tl.value.filter.withLocalOnly,
 	set: (x) => saveTlFilter('withLocalOnly', x),
-})
+});
 
 // computed内での無限ループを防ぐためのフラグ
 const localSocialTLFilterSwitchStore = ref<'withReplies' | 'onlyFiles' | false>(
