@@ -40,6 +40,8 @@ import { HashtagChannelService } from './api/stream/channels/hashtag.js';
 import { HomeTimelineChannelService } from './api/stream/channels/home-timeline.js';
 import { HybridTimelineChannelService } from './api/stream/channels/hybrid-timeline.js';
 import { LocalTimelineChannelService } from './api/stream/channels/local-timeline.js';
+import { VmimiRelayTimelineChannelService } from './api/stream/channels/vmimi-relay-timeline.js';
+import { VmimiHybridTimelineChannelService } from './api/stream/channels/vmimi-hybrid-timeline.js';
 import { QueueStatsChannelService } from './api/stream/channels/queue-stats.js';
 import { ServerStatsChannelService } from './api/stream/channels/server-stats.js';
 import { UserListChannelService } from './api/stream/channels/user-list.js';
@@ -87,6 +89,8 @@ import { ReversiGameChannelService } from './api/stream/channels/reversi-game.js
 		HomeTimelineChannelService,
 		HybridTimelineChannelService,
 		LocalTimelineChannelService,
+		VmimiRelayTimelineChannelService,
+		VmimiHybridTimelineChannelService,
 		QueueStatsChannelService,
 		ServerStatsChannelService,
 		UserListChannelService,

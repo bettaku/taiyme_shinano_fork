@@ -4989,6 +4989,10 @@ export interface Locale extends ILocale {
      */
     readonly "withSensitive": string;
     /**
+     * ローカルのみのノートを表示
+     */
+    readonly "showLocalOnlyInTimeline": string;
+    /**
      * {name}のセンシティブなファイルを含む投稿
      */
     readonly "userSaysSomethingSensitive": ParameterizedString<"name">;
@@ -5371,6 +5375,14 @@ export interface Locale extends ILocale {
              */
             readonly "global": string;
             /**
+             * VirtualKemomimiリレーに参加しているサーバーからの投稿を見られます。
+             */
+            readonly "vmimi": string;
+            /**
+             * Vみみタイムラインの投稿とホームタイムラインの投稿が両方表示されます。
+             */
+            readonly "vmimiHybrid": string;
+            /**
              * それぞれのタイムラインは、画面上部でいつでも切り替えられます。
              */
             readonly "description2": string;
@@ -5507,6 +5519,14 @@ export interface Locale extends ILocale {
          * グローバルタイムラインでは、接続している他のすべてのサーバーからの投稿を見られます。
          */
         readonly "global": string;
+        /**
+         * Vみみタイムラインでは、VirtualKemomimiリレーに参加しているサーバーからの投稿を見られます。
+         */
+        readonly "vmimi": string;
+        /**
+         * Vみみソーシャルタイムラインでは、Vみみタイムラインとホームタイムラインの両方の投稿を表示することができます。
+         */
+        readonly "vmimiHybrid": string;
     };
     readonly "_serverRules": {
         /**
@@ -6630,6 +6650,10 @@ export interface Locale extends ILocale {
             readonly "high": string;
         };
         readonly "_options": {
+            /**
+             * Vミミタイムラインの閲覧
+             */
+            readonly "vrtlAvailable": string;
             /**
              * グローバルタイムラインの閲覧
              */
@@ -8789,6 +8813,14 @@ export interface Locale extends ILocale {
          * グローバル
          */
         readonly "global": string;
+        /**
+         * Vみみ
+         */
+        readonly "vmimi": string;
+        /**
+         * Vみみソーシャル
+         */
+        readonly "vmimiHybrid": string;
     };
     readonly "_play": {
         /**

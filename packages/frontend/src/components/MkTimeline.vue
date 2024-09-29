@@ -39,10 +39,12 @@ const props = withDefaults(defineProps<{
 	withRenotes?: boolean;
 	withReplies?: boolean;
 	onlyFiles?: boolean;
+	withLocalOnly?: boolean;
 }>(), {
 	withRenotes: true,
 	withReplies: false,
 	onlyFiles: false,
+	withLocalOnly: true,
 });
 
 const emit = defineEmits<{
@@ -58,6 +60,7 @@ type TimelineQueryType = {
 	withRenotes?: boolean;
 	withReplies?: boolean;
 	withFiles?: boolean;
+	withLocalOnly?: boolean;
 	visibility?: string;
 	listId?: string;
 	channelId?: string;
@@ -121,6 +124,19 @@ function connectChannel() {
 		connection = stream.useChannel('globalTimeline', {
 			withRenotes: props.withRenotes,
 			withFiles: props.onlyFiles ? true : undefined,
+		});
+	} else if (props.src === 'vmimi') {
+		connection = stream.useChannel('vmimiRelayTimeline', {
+			withRenotes: props.withRenotes,
+			withFiles: props.onlyFiles ? true : undefined,
+			withReplies: props.withReplies,
+		});
+	} else if (props.src === 'vmimiHybrid') {
+		connection = stream.useChannel('vmimiHybridTimeline', {
+			withRenotes: props.withRenotes,
+			withFiles: props.onlyFiles ? true : undefined,
+			withReplies: props.withReplies,
+			withLocalOnly: props.withLocalOnly,
 		});
 	} else if (props.src === 'mentions') {
 		connection = stream.useChannel('main');
@@ -187,6 +203,21 @@ function updatePaginationQuery() {
 			withRenotes: props.withRenotes,
 			withReplies: props.withReplies,
 			withFiles: props.onlyFiles ? true : undefined,
+		};
+	} else if (props.src === 'vmimi') {
+		endpoint = 'notes/vmimi-relay-timeline';
+		query = {
+			withRenotes: props.withRenotes,
+			withFiles: props.onlyFiles ? true : undefined,
+			withReplies: props.withReplies,
+		};
+	} else if (props.src === 'vmimiHybrid') {
+		endpoint = 'notes/vmimi-hybrid-timeline';
+		query = {
+			withRenotes: props.withRenotes,
+			withFiles: props.onlyFiles ? true : undefined,
+			withReplies: props.withReplies,
+			withLocalOnly: props.withLocalOnly,
 		};
 	} else if (props.src === 'global') {
 		endpoint = 'notes/global-timeline';
