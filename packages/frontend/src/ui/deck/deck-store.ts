@@ -50,6 +50,7 @@ export type Column = {
 	withRenotes?: boolean;
 	withReplies?: boolean;
 	onlyFiles?: boolean;
+	withLocalOnly?: boolean;
 	soundSetting: SoundStore;
 };
 

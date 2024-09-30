@@ -38,7 +38,7 @@ import type { MenuItem } from '@/types/menu.js';
 import MkTimeline from '@/components/MkTimeline.vue';
 import * as os from '@/os.js';
 import { i18n } from '@/i18n.js';
-import { hasWithReplies, isAvailableBasicTimeline, basicTimelineIconClass } from '@/timelines.js';
+import { hasWithReplies, isAvailableBasicTimeline, basicTimelineIconClass, isVrTimeline } from '@/timelines.js';
 import { instance } from '@/instance.js';
 import { SoundStore } from '@/store.js';
 import { soundSettingsButton } from '@/ui/deck/tl-note-notification.js';
@@ -55,6 +55,7 @@ const soundSetting = ref<SoundStore>(props.column.soundSetting ?? { type: null, 
 const withRenotes = ref(props.column.withRenotes ?? true);
 const withReplies = ref(props.column.withReplies ?? false);
 const onlyFiles = ref(props.column.onlyFiles ?? false);
+const withLocalOnly = ref(props.column.withLocalOnly ?? true);
 
 watch(withRenotes, v => {
 	updateColumn(props.column.id, {
@@ -69,6 +70,12 @@ watch(withReplies, v => {
 });
 
 watch(onlyFiles, v => {
+	updateColumn(props.column.id, {
+		onlyFiles: v,
+	});
+});
+
+watch(withLocalOnly, v => {
 	updateColumn(props.column.id, {
 		onlyFiles: v,
 	});
@@ -95,6 +102,10 @@ async function setType() {
 			value: 'social' as const, text: i18n.ts._timelines.social,
 		}, {
 			value: 'global' as const, text: i18n.ts._timelines.global,
+		}, {
+			value: 'vmimi' as const, text: i18n.ts._timelines.vmimi,
+		}, {
+			value: 'vmimiHybrid' as const, text: i18n.ts._timelines.vmimiHybrid,
 		}],
 	});
 	if (canceled) {
@@ -135,7 +146,11 @@ const menu = computed<MenuItem[]>(() => [{
 	text: i18n.ts.fileAttachedOnly,
 	ref: onlyFiles,
 	disabled: hasWithReplies(props.column.tl) ? withReplies : false,
-}]);
+}, isVrTimeline(props.column.tl) ? {
+	type: 'switch',
+	text: i18n.ts.showLocalOnlyInTimeline,
+	ref: withLocalOnly,
+} : undefined]);
 </script>
 
 <style lang="scss" module>
