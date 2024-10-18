@@ -375,14 +375,10 @@ function adminLookup(ev: MouseEvent) {
 			width: 32%;
 			height: 100%;
 			max-width: 280px;
-			overflow: auto;
-			border-right: solid 0.5px var(--divider);
 			box-sizing: border-box;
-
-			@supports (height: 100cqh) {
-				overflow-y: scroll;
-				overscroll-behavior: contain;
-			}
+			border-right: solid 0.5px var(--MI_THEME-divider);
+			overflow: auto;
+			height: 100%;
 		}
 
 		> .mainRoot {

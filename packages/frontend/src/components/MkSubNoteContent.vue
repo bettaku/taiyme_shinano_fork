@@ -49,66 +49,63 @@ const collapsed = ref(isLong);
 <style lang="scss" module>
 .root {
 	overflow-wrap: break-word;
-}
 
-.collapsed {
-	position: relative;
-	min-height: 64px; // .showMoreFade
-	max-height: 9em;
-	overflow: hidden; // fallback (overflow: clip)
-	overflow: clip;
-}
+	&.collapsed {
+		position: relative;
+		max-height: 9em;
+		overflow: clip;
 
-.showMoreFade {
-	display: block;
-	position: absolute;
-	z-index: 10;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 64px; // .collapsed
-	background: linear-gradient(0deg, var(--panel), color(from var(--panel) srgb r g b / 0));
-}
+		> .fade {
+			display: block;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 64px;
+			background: linear-gradient(0deg, var(--MI_THEME-panel), color(from var(--MI_THEME-panel) srgb r g b / 0));
 
-.showLessFade {
-	display: block;
-	position: sticky;
-	z-index: 10;
-	bottom: var(--stickyBottom, 0px);
-	width: 100%;
-	height: 64px;
-}
+			> .fadeLabel {
+				display: inline-block;
+				background: var(--MI_THEME-panel);
+				padding: 6px 10px;
+				font-size: 0.8em;
+				border-radius: 999px;
+				box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+			}
 
-.showMoreFade,
-.showLessFade {
-	&:hover {
-		> .fadeLabel {
-			background: var(--panelHighlight);
+			&:hover {
+				> .fadeLabel {
+					background: var(--MI_THEME-panelHighlight);
+				}
+			}
 		}
-	}
-
-	> .fadeLabel {
-		display: inline-block;
-		background: var(--panel);
-		padding: 6px 10px;
-		font-size: 0.8em;
-		border-radius: 999px;
-		box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
 	}
 }
 
 .reply {
 	margin-right: 6px;
-	color: var(--accent);
+	color: var(--MI_THEME-accent);
 }
 
 .rp {
 	margin-left: 4px;
 	font-style: oblique;
-	color: var(--renote);
+	color: var(--MI_THEME-renote);
 }
 
-.poll {
-	font-size: 80%;
+.showLess {
+	width: 100%;
+	margin-top: 14px;
+	position: sticky;
+	bottom: calc(var(--MI-stickyBottom, 0px) + 14px);
+}
+
+.showLessLabel {
+	display: inline-block;
+	background: var(--MI_THEME-popup);
+	padding: 6px 10px;
+	font-size: 0.8em;
+	border-radius: 999px;
+	box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
 }
 </style>

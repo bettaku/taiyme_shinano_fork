@@ -37,6 +37,8 @@ compose.yml
 docker-compose.yaml
 docker-compose.yml
 !/.devcontainer/compose.yaml
+./compose.yml
+.devcontainer/compose.yml
 !/.devcontainer/compose.yml
 !/.devcontainer/docker-compose.yaml
 !/.devcontainer/docker-compose.yml

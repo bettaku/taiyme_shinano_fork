@@ -4367,6 +4367,10 @@ export interface Locale extends ILocale {
      */
     readonly "enableChartsForFederatedInstances": string;
     /**
+     * リモートサーバーの情報を取得
+     */
+    readonly "enableStatsForFederatedInstances": string;
+    /**
      * ノートのアクションにクリップを追加
      */
     readonly "showClipButtonInNoteFooter": string;
@@ -4823,6 +4827,10 @@ export interface Locale extends ILocale {
      */
     readonly "hideRepliesToOthersInTimelineAll": string;
     /**
+     * TLに連合なし投稿を含める
+     */
+    readonly "showLocalOnlyInTimeline": string;
+    /**
      * この操作は元に戻せません。本当にTLに現在フォロー中の人全員の返信を含めるようにしますか？
      */
     readonly "confirmShowRepliesAll": string;
@@ -5166,6 +5174,26 @@ export interface Locale extends ILocale {
      * 対象
      */
     readonly "target": string;
+    /**
+     * CAPTCHAのテストを目的とした機能です。<strong>本番環境で使用しないでください。</strong>
+     */
+    readonly "testCaptchaWarning": string;
+    /**
+     * 禁止ワード（ユーザーの名前）
+     */
+    readonly "prohibitedWordsForNameOfUser": string;
+    /**
+     * このリストに含まれる文字列がユーザーの名前に含まれる場合、ユーザーの名前の変更を拒否します。モデレーター権限を持つユーザーはこの制限の影響を受けません。
+     */
+    readonly "prohibitedWordsForNameOfUserDescription": string;
+    /**
+     * 変更しようとした名前に禁止された文字列が含まれています
+     */
+    readonly "yourNameContainsProhibitedWords": string;
+    /**
+     * 名前に禁止されている文字列が含まれています。この名前を使用したい場合は、サーバー管理者にお問い合わせください。
+     */
+    readonly "yourNameContainsProhibitedWordsDescription": string;
     readonly "_abuseUserReport": {
         /**
          * 転送
@@ -5632,6 +5660,14 @@ export interface Locale extends ILocale {
          * グローバルタイムラインでは、接続している他のすべてのサーバーからの投稿を見られます。
          */
         readonly "global": string;
+        /**
+         * ぶいみみリレータイムラインでは、バーチャルケモミミリレーサーバーに参加しているサーバーのユーザー全員の投稿を見られます。
+         */
+        readonly "vmimi-relay": string;
+        /**
+         * ぶいみみソーシャルタイムラインには、ホームタイムラインとぶいみみリレータイムラインの投稿が両方表示されます。
+         */
+        readonly "vmimi-relay-social": string;
     };
     readonly "_serverRules": {
         /**
@@ -5696,6 +5732,10 @@ export interface Locale extends ILocale {
          * サーバー運営者へのお問い合わせフォームのURLや、運営者の連絡先等が記載されたWebページのURLを指定します。
          */
         readonly "inquiryUrlDescription": string;
+        /**
+         * 一定期間モデレーターのアクティビティが検出されなかった場合、スパム防止のためこの設定は自動でオフになります。
+         */
+        readonly "thisSettingWillAutomaticallyOffWhenModeratorsInactive": string;
     };
     readonly "_accountMigration": {
         /**
@@ -6768,6 +6808,10 @@ export interface Locale extends ILocale {
              */
             readonly "ltlAvailable": string;
             /**
+             * ぶいみみリレータイムラインの閲覧
+             */
+            readonly "vrtlAvailable": string;
+            /**
              * パブリック投稿の許可
              */
             readonly "canPublicNote": string;
@@ -7705,10 +7749,6 @@ export interface Locale extends ILocale {
              * 入力ボックスの縁取り
              */
             readonly "inputBorder": string;
-            /**
-             * リスト項目の背景 (ホバー)
-             */
-            readonly "listItemHoverBg": string;
             /**
              * ドライブフォルダーの背景
              */
@@ -8950,6 +8990,14 @@ export interface Locale extends ILocale {
          * グローバル
          */
         readonly "global": string;
+        /**
+         * ぶいみみリレー
+         */
+        readonly "vmimi-relay": string;
+        /**
+         * ぶいみみソーシャル
+         */
+        readonly "vmimi-relay-social": string;
     };
     readonly "_play": {
         /**
@@ -9637,6 +9685,14 @@ export interface Locale extends ILocale {
              * ユーザーが作成されたとき
              */
             readonly "userCreated": string;
+            /**
+             * モデレーターが一定期間非アクティブになったとき
+             */
+            readonly "inactiveModeratorsWarning": string;
+            /**
+             * モデレーターが一定期間非アクティブだったため、システムにより招待制へと変更されたとき
+             */
+            readonly "inactiveModeratorsInvitationOnlyChanged": string;
         };
         /**
          * Webhookを削除しますか？

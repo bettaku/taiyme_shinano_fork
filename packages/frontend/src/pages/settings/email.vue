@@ -4,52 +4,47 @@ SPDX-License-Identifier: AGPL-3.0-only
 -->
 
 <template>
-<MkStickyContainer>
-	<template #header><MkPageHeader :actions="headerActions" :tabs="headerTabs"/></template>
-	<MkSpacer :contentMax="900">
-		<div v-if="instance.enableEmail" class="_gaps_m">
-			<FormSection first>
-				<template #label>{{ i18n.ts.emailAddress }}</template>
-				<MkInput v-model="emailAddress" type="email" manualSave>
-					<template #prefix><i class="ti ti-mail"></i></template>
-					<template v-if="$i.email && !$i.emailVerified" #caption>{{ i18n.ts.verificationEmailSent }}</template>
-					<template v-else-if="emailAddress === $i.email && $i.emailVerified" #caption><i class="ti ti-check" style="color: var(--success);"></i> {{ i18n.ts.emailVerified }}</template>
-				</MkInput>
-			</FormSection>
+<div v-if="instance.enableEmail" class="_gaps_m">
+	<FormSection first>
+		<template #label>{{ i18n.ts.emailAddress }}</template>
+		<MkInput v-model="emailAddress" type="email" manualSave>
+			<template #prefix><i class="ti ti-mail"></i></template>
+			<template v-if="$i.email && !$i.emailVerified" #caption>{{ i18n.ts.verificationEmailSent }}</template>
+			<template v-else-if="emailAddress === $i.email && $i.emailVerified" #caption><i class="ti ti-check" style="color: var(--MI_THEME-success);"></i> {{ i18n.ts.emailVerified }}</template>
+		</MkInput>
+	</FormSection>
 
-			<FormSection>
-				<MkSwitch :modelValue="$i.receiveAnnouncementEmail" @update:modelValue="onChangeReceiveAnnouncementEmail">
-					{{ i18n.ts.receiveAnnouncementFromInstance }}
-				</MkSwitch>
-			</FormSection>
+	<FormSection>
+		<MkSwitch :modelValue="$i.receiveAnnouncementEmail" @update:modelValue="onChangeReceiveAnnouncementEmail">
+			{{ i18n.ts.receiveAnnouncementFromInstance }}
+		</MkSwitch>
+	</FormSection>
 
-			<FormSection>
-				<template #label>{{ i18n.ts.emailNotification }}</template>
+	<FormSection>
+		<template #label>{{ i18n.ts.emailNotification }}</template>
 
-				<div class="_gaps_s">
-					<MkSwitch v-model="emailNotification_mention">
-						{{ i18n.ts._notification._types.mention }}
-					</MkSwitch>
-					<MkSwitch v-model="emailNotification_reply">
-						{{ i18n.ts._notification._types.reply }}
-					</MkSwitch>
-					<MkSwitch v-model="emailNotification_quote">
-						{{ i18n.ts._notification._types.quote }}
-					</MkSwitch>
-					<MkSwitch v-model="emailNotification_follow">
-						{{ i18n.ts._notification._types.follow }}
-					</MkSwitch>
-					<MkSwitch v-model="emailNotification_receiveFollowRequest">
-						{{ i18n.ts._notification._types.receiveFollowRequest }}
-					</MkSwitch>
-				</div>
-			</FormSection>
+		<div class="_gaps_s">
+			<MkSwitch v-model="emailNotification_mention">
+				{{ i18n.ts._notification._types.mention }}
+			</MkSwitch>
+			<MkSwitch v-model="emailNotification_reply">
+				{{ i18n.ts._notification._types.reply }}
+			</MkSwitch>
+			<MkSwitch v-model="emailNotification_quote">
+				{{ i18n.ts._notification._types.quote }}
+			</MkSwitch>
+			<MkSwitch v-model="emailNotification_follow">
+				{{ i18n.ts._notification._types.follow }}
+			</MkSwitch>
+			<MkSwitch v-model="emailNotification_receiveFollowRequest">
+				{{ i18n.ts._notification._types.receiveFollowRequest }}
+			</MkSwitch>
 		</div>
-		<div v-if="!instance.enableEmail" class="_gaps_m">
-			<MkInfo>{{ i18n.ts.emailNotSupported }}</MkInfo>
-		</div>
-	</MkSpacer>
-</MkStickyContainer>
+	</FormSection>
+</div>
+<div v-if="!instance.enableEmail" class="_gaps_m">
+	<MkInfo>{{ i18n.ts.emailNotSupported }}</MkInfo>
+</div>
 </template>
 
 <script lang="ts" setup>

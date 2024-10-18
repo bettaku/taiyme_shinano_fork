@@ -46,6 +46,11 @@ export const paramDef = {
 				type: 'string',
 			},
 		},
+		prohibitedWordsForNameOfUser: {
+			type: 'array', nullable: true, items: {
+				type: 'string',
+			},
+		},
 		themeColor: { type: 'string', nullable: true, pattern: '^#[0-9a-fA-F]{6}$' },
 		mascotImageUrl: { type: 'string', nullable: true },
 		bannerUrl: { type: 'string', nullable: true },
@@ -78,6 +83,7 @@ export const paramDef = {
 		enableTurnstile: { type: 'boolean' },
 		turnstileSiteKey: { type: 'string', nullable: true },
 		turnstileSecretKey: { type: 'string', nullable: true },
+		enableTestcaptcha: { type: 'boolean' },
 		sensitiveMediaDetection: { type: 'string', enum: ['none', 'all', 'local', 'remote'] },
 		sensitiveMediaDetectionSensitivity: { type: 'string', enum: ['medium', 'low', 'high', 'veryLow', 'veryHigh'] },
 		setSensitiveFlagAutomatically: { type: 'boolean' },
@@ -130,6 +136,7 @@ export const paramDef = {
 		truemailAuthKey: { type: 'string', nullable: true },
 		enableChartsForRemoteUser: { type: 'boolean' },
 		enableChartsForFederatedInstances: { type: 'boolean' },
+		enableStatsForFederatedInstances: { type: 'boolean' },
 		enableServerMachineStats: { type: 'boolean' },
 		enableIdenticonGeneration: { type: 'boolean' },
 		serverRules: { type: 'array', items: { type: 'string' } },
@@ -138,6 +145,7 @@ export const paramDef = {
 		manifestJsonOverride: { type: 'string' },
 		enableFanoutTimeline: { type: 'boolean' },
 		enableFanoutTimelineDbFallback: { type: 'boolean' },
+		vmimiRelayTimelineCacheMax: { type: 'integer' },
 		perLocalUserUserTimelineCacheMax: { type: 'integer' },
 		perRemoteUserUserTimelineCacheMax: { type: 'integer' },
 		perUserHomeTimelineCacheMax: { type: 'integer' },
@@ -212,6 +220,9 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 			}
 			if (Array.isArray(ps.prohibitedWords)) {
 				set.prohibitedWords = ps.prohibitedWords.filter(Boolean);
+			}
+			if (Array.isArray(ps.prohibitedWordsForNameOfUser)) {
+				set.prohibitedWordsForNameOfUser = ps.prohibitedWordsForNameOfUser.filter(Boolean);
 			}
 			if (Array.isArray(ps.silencedHosts)) {
 				let lastValue = '';
@@ -355,6 +366,10 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 			if (ps.turnstileSecretKey !== undefined) {
 				set.turnstileSecretKey = ps.turnstileSecretKey;
+			}
+
+			if (ps.enableTestcaptcha !== undefined) {
+				set.enableTestcaptcha = ps.enableTestcaptcha;
 			}
 
 			if (ps.sensitiveMediaDetection !== undefined) {
@@ -565,6 +580,10 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				set.enableChartsForFederatedInstances = ps.enableChartsForFederatedInstances;
 			}
 
+			if (ps.enableStatsForFederatedInstances !== undefined) {
+				set.enableStatsForFederatedInstances = ps.enableStatsForFederatedInstances;
+			}
+
 			if (ps.enableServerMachineStats !== undefined) {
 				set.enableServerMachineStats = ps.enableServerMachineStats;
 			}
@@ -595,6 +614,10 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 
 			if (ps.perLocalUserUserTimelineCacheMax !== undefined) {
 				set.perLocalUserUserTimelineCacheMax = ps.perLocalUserUserTimelineCacheMax;
+			}
+
+			if (ps.vmimiRelayTimelineCacheMax !== undefined) {
+				set.vmimiRelayTimelineCacheMax = ps.vmimiRelayTimelineCacheMax;
 			}
 
 			if (ps.perRemoteUserUserTimelineCacheMax !== undefined) {

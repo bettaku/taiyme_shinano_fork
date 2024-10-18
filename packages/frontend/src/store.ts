@@ -76,6 +76,8 @@ export const defaultStore = markRaw(new Storage('base', {
 			local: false,
 			social: false,
 			global: false,
+			'vmimi-relay': false,
+			'vmimi-relay-social': false,
 		},
 	},
 	abusesTutorial: {
@@ -189,13 +191,14 @@ export const defaultStore = markRaw(new Storage('base', {
 	tl: {
 		where: 'deviceAccount',
 		default: {
-			src: 'home' as 'home' | 'local' | 'social' | 'global' | `list:${string}`,
+			src: 'home' as 'home' | 'local' | 'social' | 'global' | 'vmimi-relay' | 'vmimi-relay-social' | `list:${string}`,
 			userList: null as Misskey.entities.UserList | null,
 			filter: {
 				withReplies: true,
 				withRenotes: true,
 				withSensitive: true,
 				onlyFiles: false,
+				withLocalOnly: true,
 			},
 		},
 	},
@@ -467,6 +470,10 @@ export const defaultStore = markRaw(new Storage('base', {
 	contextMenu: {
 		where: 'device',
 		default: 'app' as 'app' | 'appWithShift' | 'native',
+	},
+	skipNoteRender: {
+		where: 'device',
+		default: true,
 	},
 
 	sound_masterVolume: {

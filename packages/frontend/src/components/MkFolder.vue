@@ -113,8 +113,8 @@ function toggle() {
 
 onMounted(() => {
 	const computedStyle = getComputedStyle(document.documentElement);
-	const parentBg = getBgColor(rootEl.value?.parentElement) ?? 'transparent';
-	const myBg = computedStyle.getPropertyValue('--panel');
+	const parentBg = getBgColor(rootEl.value!.parentElement!);
+	const myBg = computedStyle.getPropertyValue('--MI_THEME-panel');
 	bgSame.value = parentBg === myBg;
 });
 </script>
@@ -140,17 +140,17 @@ onMounted(() => {
 	align-items: center;
 	width: 100%;
 	box-sizing: border-box;
-	padding: 10px 14px;
-	background: var(--folderHeaderBg);
-	-webkit-backdrop-filter: var(--blur, blur(15px));
-	backdrop-filter: var(--blur, blur(15px));
+	padding: 9px 12px 9px 12px;
+	background: var(--MI_THEME-folderHeaderBg);
+	-webkit-backdrop-filter: var(--MI-blur, blur(15px));
+	backdrop-filter: var(--MI-blur, blur(15px));
 	border-radius: 6px;
 	font-size: 0.9em;
 	transition: border-radius 0.3s;
 
 	&:hover {
 		text-decoration: none;
-		background: var(--folderHeaderHoverBg);
+		background: var(--MI_THEME-folderHeaderHoverBg);
 	}
 
 	&:focus-within {
@@ -158,13 +158,24 @@ onMounted(() => {
 	}
 
 	&.active {
-		color: var(--accent);
-		background: var(--folderHeaderHoverBg);
+		color: var(--MI_THEME-accent);
+		background: var(--MI_THEME-folderHeaderHoverBg);
 	}
 
 	&.opened {
 		border-radius: 6px 6px 0 0;
 	}
+}
+
+.headerUpper {
+	display: flex;
+	align-items: center;
+}
+
+.headerLower {
+	color: var(--MI_THEME-fgTransparentWeak);
+	font-size: .85em;
+	padding-left: 4px;
 }
 
 .headerIcon {
@@ -196,13 +207,13 @@ onMounted(() => {
 }
 
 .headerTextSub {
-	color: var(--fgTransparentWeak);
+	color: var(--MI_THEME-fgTransparentWeak);
 	font-size: .85em;
 }
 
 .headerRight {
 	margin-left: auto;
-	color: var(--fgTransparentWeak);
+	color: var(--MI_THEME-fgTransparentWeak);
 	white-space: nowrap;
 }
 
@@ -211,24 +222,26 @@ onMounted(() => {
 }
 
 .body {
-	background: var(--panel);
+	background: var(--MI_THEME-panel);
 	border-radius: 0 0 6px 6px;
 	container-type: inline-size;
 
 	&.bgSame {
-		background: var(--bg);
+		background: var(--MI_THEME-bg);
 	}
 }
 
 .footer {
 	position: sticky !important;
 	z-index: 1;
-	bottom: var(--stickyBottom, 0px);
+	bottom: var(--MI-stickyBottom, 0px);
 	left: 0;
 	padding: 12px;
-	background: var(--acrylicBg);
-	-webkit-backdrop-filter: var(--blur, blur(15px));
-	backdrop-filter: var(--blur, blur(15px));
+	background: var(--MI_THEME-acrylicBg);
+	-webkit-backdrop-filter: var(--MI-blur, blur(15px));
+	backdrop-filter: var(--MI-blur, blur(15px));
+	background-size: auto auto;
+	background-image: repeating-linear-gradient(135deg, transparent, transparent 5px, var(--MI_THEME-panel) 5px, var(--MI_THEME-panel) 10px);
 	border-radius: 0 0 6px 6px;
 	background-image: repeating-linear-gradient(
 		135deg,

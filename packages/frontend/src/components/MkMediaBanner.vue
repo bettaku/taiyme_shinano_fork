@@ -164,9 +164,13 @@ const showMediaMenu = (ev: MouseEvent) => {
 
 %HideInfoText {
 	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	font-size: clamp(6px, calc(12px * var(--mediaBanner-scale)), 12px);
+}
+
+.download {
+}
+
+.sensitive {
+	background: #111;
 	color: #fff;
 }
 

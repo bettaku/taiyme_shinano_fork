@@ -136,6 +136,30 @@ const initStats = () => misskeyApi('stats', {});
 </script>
 
 <style lang="scss" module>
+.banner {
+	text-align: center;
+	border-radius: 10px;
+	overflow: clip;
+	background-color: var(--MI_THEME-panel);
+	background-size: cover;
+	background-position: center center;
+}
+
+.bannerIcon {
+	display: block;
+	margin: 16px auto 0 auto;
+	height: 64px;
+	border-radius: 8px;
+}
+
+.bannerName {
+	display: block;
+	padding: 16px;
+	color: #fff;
+	text-shadow: 0 0 8px #000;
+	background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+}
+
 .rules {
 	counter-reset: item;
 	list-style: none;
@@ -152,14 +176,14 @@ const initStats = () => misskeyApi('stats', {});
 		flex-shrink: 0;
 		display: flex;
 		position: sticky;
-		top: calc(var(--stickyTop, 0px) + 8px);
+		top: calc(var(--MI-stickyTop, 0px) + 8px);
 		counter-increment: item;
 		content: counter(item);
 		width: 32px;
 		height: 32px;
 		line-height: 32px;
-		background-color: var(--accentedBg);
-		color: var(--accent);
+		background-color: var(--MI_THEME-accentedBg);
+		color: var(--MI_THEME-accent);
 		font-size: 13px;
 		font-weight: bold;
 		align-items: center;

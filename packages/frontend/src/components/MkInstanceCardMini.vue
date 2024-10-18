@@ -69,6 +69,7 @@ $bodyInfoHieght: 16px;
 	display: flex;
 	align-items: center;
 	padding: 16px;
+	background: var(--MI_THEME-panel);
 	border-radius: 8px;
 	background-color: var(--panel);
 
@@ -135,13 +136,12 @@ $bodyInfoHieght: 16px;
 	margin-right: 12px;
 }
 
-.body {
-	flex: 1;
-	overflow: hidden;
-	font-size: 0.9em;
-	color: var(--fg);
-	padding-right: 8px;
-}
+	> :global(.body) {
+		flex: 1;
+		overflow: hidden;
+		font-size: 0.9em;
+		color: var(--MI_THEME-fg);
+		padding-right: 8px;
 
 .host {
 	display: block;
@@ -163,7 +163,32 @@ $bodyInfoHieght: 16px;
 	text-overflow: ellipsis;
 }
 
-.chart {
-	height: 30px;
+	> :global(.chart) {
+		height: 30px;
+	}
+
+  &:global(.blue) {
+    --c: rgba(0, 42, 255, 0.15);
+    background-image: linear-gradient(45deg, var(--c) 16.67%, transparent 16.67%, transparent 50%, var(--c) 50%, var(--c) 66.67%, transparent 66.67%, transparent 100%);
+    background-size: 16px 16px;
+  }
+
+	&:global(.yellow) {
+		--c: rgb(255 196 0 / 15%);
+		background-image: linear-gradient(45deg, var(--c) 16.67%, transparent 16.67%, transparent 50%, var(--c) 50%, var(--c) 66.67%, transparent 66.67%, transparent 100%);
+		background-size: 16px 16px;
+	}
+
+	&:global(.red) {
+		--c: rgb(255 0 0 / 15%);
+		background-image: linear-gradient(45deg, var(--c) 16.67%, transparent 16.67%, transparent 50%, var(--c) 50%, var(--c) 66.67%, transparent 66.67%, transparent 100%);
+		background-size: 16px 16px;
+	}
+
+	&:global(.gray) {
+		--c: var(--MI_THEME-bg);
+		background-image: linear-gradient(45deg, var(--c) 16.67%, transparent 16.67%, transparent 50%, var(--c) 50%, var(--c) 66.67%, transparent 66.67%, transparent 100%);
+		background-size: 16px 16px;
+	}
 }
 </style>

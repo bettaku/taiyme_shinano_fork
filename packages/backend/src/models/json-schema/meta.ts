@@ -115,6 +115,10 @@ export const packedMetaLiteSchema = {
 			type: 'string',
 			optional: false, nullable: true,
 		},
+		enableTestcaptcha: {
+			type: 'boolean',
+			optional: false, nullable: false,
+		},
 		swPublickey: {
 			type: 'string',
 			optional: false, nullable: true,
@@ -281,6 +285,10 @@ export const packedMetaDetailedOnlySchema = {
 					optional: false, nullable: false,
 				},
 				globalTimeline: {
+					type: 'boolean',
+					optional: false, nullable: false,
+				},
+				vmimiRelayTimeline: {
 					type: 'boolean',
 					optional: false, nullable: false,
 				},

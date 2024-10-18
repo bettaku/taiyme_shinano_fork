@@ -64,8 +64,10 @@ const toggle = () => {
 	display: flex;
 	user-select: none;
 
-	&:focus-visible {
-		outline-offset: 2px;
+	&:hover {
+		> .button {
+			border-color: var(--MI_THEME-inputBorderHover) !important;
+		}
 	}
 
 	&.disabled {
@@ -74,12 +76,25 @@ const toggle = () => {
 	}
 }
 
+.input {
+	position: absolute;
+	width: 0;
+	height: 0;
+	opacity: 0;
+	margin: 0;
+
+	&:focus-visible ~ .toggle {
+		outline: 2px solid var(--MI_THEME-focus);
+		outline-offset: 2px;
+	}
+}
+
 .body {
 	margin-left: 12px;
 	margin-top: 2px;
 	display: block;
 	transition: inherit;
-	color: var(--fg);
+	color: var(--MI_THEME-fg);
 }
 
 .label {
@@ -91,7 +106,7 @@ const toggle = () => {
 
 .caption {
 	margin: 8px 0 0 0;
-	color: var(--fgTransparentWeak);
+	color: var(--MI_THEME-fgTransparentWeak);
 	font-size: 0.85em;
 
 	&:empty {

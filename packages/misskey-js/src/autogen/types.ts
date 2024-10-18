@@ -2721,6 +2721,24 @@ export type paths = {
      */
     post: operations['notes___global-timeline'];
   };
+  '/notes/vmimi-relay-timeline': {
+    /**
+     * notes/vmimi-relay-timeline
+     * @description No description provided.
+     *
+     * **Credential required**: *No*
+     */
+    post: operations['notes___vmimi-relay-timeline'];
+  };
+  '/notes/vmimi-relay-hybrid-timeline': {
+    /**
+     * notes/vmimi-relay-hybrid-timeline
+     * @description No description provided.
+     *
+     * **Credential required**: *Yes* / **Permission**: *read:account*
+     */
+    post: operations['notes___vmimi-relay-hybrid-timeline'];
+  };
   '/notes/hybrid-timeline': {
     /**
      * notes/hybrid-timeline
@@ -4838,6 +4856,7 @@ export type components = {
       usersCount: number;
     });
     RolePolicies: {
+      vrtlAvailable: boolean;
       gtlAvailable: boolean;
       ltlAvailable: boolean;
       canPublicNote: boolean;
@@ -4972,6 +4991,7 @@ export type components = {
       recaptchaSiteKey: string | null;
       enableTurnstile: boolean;
       turnstileSiteKey: string | null;
+      enableTestcaptcha: boolean;
       swPublickey: string | null;
       /** @default /assets/ai.png */
       mascotImageUrl: string;
@@ -5023,6 +5043,7 @@ export type components = {
         emailRequiredForSignup: boolean;
         localTimeline: boolean;
         globalTimeline: boolean;
+        vmimiRelayTimeline: boolean;
         hcaptcha: boolean;
         turnstile: boolean;
         recaptcha: boolean;
@@ -5047,7 +5068,7 @@ export type components = {
       latestSentAt: string | null;
       latestStatus: number | null;
       name: string;
-      on: ('abuseReport' | 'abuseReportResolved' | 'userCreated')[];
+      on: ('abuseReport' | 'abuseReportResolved' | 'userCreated' | 'inactiveModeratorsWarning' | 'inactiveModeratorsInvitationOnlyChanged')[];
       url: string;
       secret: string;
     };
@@ -5102,6 +5123,7 @@ export type operations = {
             recaptchaSiteKey: string | null;
             enableTurnstile: boolean;
             turnstileSiteKey: string | null;
+            enableTestcaptcha: boolean;
             swPublickey: string | null;
             /** @default /assets/ai.png */
             mascotImageUrl: string | null;
@@ -5122,6 +5144,7 @@ export type operations = {
             blockedHosts: string[];
             sensitiveWords: string[];
             prohibitedWords: string[];
+            prohibitedWordsForNameOfUser: string[];
             bannedEmailDomains?: string[];
             preservedUsernames: string[];
             hcaptchaSecretKey: string | null;
@@ -5162,6 +5185,7 @@ export type operations = {
             truemailAuthKey: string | null;
             enableChartsForRemoteUser: boolean;
             enableChartsForFederatedInstances: boolean;
+            enableStatsForFederatedInstances: boolean;
             enableServerMachineStats: boolean;
             enableIdenticonGeneration: boolean;
             manifestJsonOverride: string;
@@ -9462,6 +9486,7 @@ export type operations = {
           blockedHosts?: string[] | null;
           sensitiveWords?: string[] | null;
           prohibitedWords?: string[] | null;
+          prohibitedWordsForNameOfUser?: string[] | null;
           themeColor?: string | null;
           mascotImageUrl?: string | null;
           bannerUrl?: string | null;
@@ -9494,6 +9519,7 @@ export type operations = {
           enableTurnstile?: boolean;
           turnstileSiteKey?: string | null;
           turnstileSecretKey?: string | null;
+          enableTestcaptcha?: boolean;
           /** @enum {string} */
           sensitiveMediaDetection?: 'none' | 'all' | 'local' | 'remote';
           /** @enum {string} */
@@ -9545,6 +9571,7 @@ export type operations = {
           truemailAuthKey?: string | null;
           enableChartsForRemoteUser?: boolean;
           enableChartsForFederatedInstances?: boolean;
+          enableStatsForFederatedInstances?: boolean;
           enableServerMachineStats?: boolean;
           enableIdenticonGeneration?: boolean;
           serverRules?: string[];
@@ -9553,6 +9580,7 @@ export type operations = {
           manifestJsonOverride?: string;
           enableFanoutTimeline?: boolean;
           enableFanoutTimelineDbFallback?: boolean;
+          vmimiRelayTimelineCacheMax?: number;
           perLocalUserUserTimelineCacheMax?: number;
           perRemoteUserUserTimelineCacheMax?: number;
           perUserHomeTimelineCacheMax?: number;
@@ -10245,7 +10273,7 @@ export type operations = {
         'application/json': {
           isActive: boolean;
           name: string;
-          on: ('abuseReport' | 'abuseReportResolved' | 'userCreated')[];
+          on: ('abuseReport' | 'abuseReportResolved' | 'userCreated' | 'inactiveModeratorsWarning' | 'inactiveModeratorsInvitationOnlyChanged')[];
           url: string;
           secret: string;
         };
@@ -10355,7 +10383,7 @@ export type operations = {
       content: {
         'application/json': {
           isActive?: boolean;
-          on?: ('abuseReport' | 'abuseReportResolved' | 'userCreated')[];
+          on?: ('abuseReport' | 'abuseReportResolved' | 'userCreated' | 'inactiveModeratorsWarning' | 'inactiveModeratorsInvitationOnlyChanged')[];
         };
       };
     };
@@ -10468,7 +10496,7 @@ export type operations = {
           id: string;
           isActive: boolean;
           name: string;
-          on: ('abuseReport' | 'abuseReportResolved' | 'userCreated')[];
+          on: ('abuseReport' | 'abuseReportResolved' | 'userCreated' | 'inactiveModeratorsWarning' | 'inactiveModeratorsInvitationOnlyChanged')[];
           url: string;
           secret: string;
         };
@@ -10527,7 +10555,7 @@ export type operations = {
           /** Format: misskey:id */
           webhookId: string;
           /** @enum {string} */
-          type: 'abuseReport' | 'abuseReportResolved' | 'userCreated';
+          type: 'abuseReport' | 'abuseReportResolved' | 'userCreated' | 'inactiveModeratorsWarning' | 'inactiveModeratorsInvitationOnlyChanged';
           override?: {
             url?: string;
             secret?: string;
@@ -21849,6 +21877,146 @@ export type operations = {
           withRenotes?: boolean;
           /** @default 10 */
           limit?: number;
+          /** Format: misskey:id */
+          sinceId?: string;
+          /** Format: misskey:id */
+          untilId?: string;
+          sinceDate?: number;
+          untilDate?: number;
+        };
+      };
+    };
+    responses: {
+      /** @description OK (with results) */
+      200: {
+        content: {
+          'application/json': components['schemas']['Note'][];
+        };
+      };
+      /** @description Client error */
+      400: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Authentication error */
+      401: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Forbidden error */
+      403: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description I'm Ai */
+      418: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Internal server error */
+      500: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+    };
+  };
+  /**
+   * notes/vmimi-relay-timeline
+   * @description No description provided.
+   *
+   * **Credential required**: *No*
+   */
+  'notes___vmimi-relay-timeline': {
+    requestBody: {
+      content: {
+        'application/json': {
+          /** @default false */
+          withFiles?: boolean;
+          /** @default true */
+          withRenotes?: boolean;
+          /** @default false */
+          withReplies?: boolean;
+          /** @default true */
+          withLocalOnly?: boolean;
+          /** @default 10 */
+          limit?: number;
+          /** @default true */
+          allowPartial?: boolean;
+          /** Format: misskey:id */
+          sinceId?: string;
+          /** Format: misskey:id */
+          untilId?: string;
+          sinceDate?: number;
+          untilDate?: number;
+        };
+      };
+    };
+    responses: {
+      /** @description OK (with results) */
+      200: {
+        content: {
+          'application/json': components['schemas']['Note'][];
+        };
+      };
+      /** @description Client error */
+      400: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Authentication error */
+      401: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Forbidden error */
+      403: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description I'm Ai */
+      418: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+      /** @description Internal server error */
+      500: {
+        content: {
+          'application/json': components['schemas']['Error'];
+        };
+      };
+    };
+  };
+  /**
+   * notes/vmimi-relay-hybrid-timeline
+   * @description No description provided.
+   *
+   * **Credential required**: *Yes* / **Permission**: *read:account*
+   */
+  'notes___vmimi-relay-hybrid-timeline': {
+    requestBody: {
+      content: {
+        'application/json': {
+          /** @default false */
+          withFiles?: boolean;
+          /** @default true */
+          withRenotes?: boolean;
+          /** @default false */
+          withReplies?: boolean;
+          /** @default true */
+          withLocalOnly?: boolean;
+          /** @default 10 */
+          limit?: number;
+          /** @default true */
+          allowPartial?: boolean;
           /** Format: misskey:id */
           sinceId?: string;
           /** Format: misskey:id */

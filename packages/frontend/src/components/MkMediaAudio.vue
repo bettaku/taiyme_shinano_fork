@@ -392,9 +392,8 @@ onDeactivated(() => {
 	--mediaAudio-scale: 1;
 	box-sizing: border-box;
 	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden; // fallback (overflow: clip)
+	border: .5px solid var(--MI_THEME-divider);
+	border-radius: var(--MI-radius);
 	overflow: clip;
 	border: 0.5px solid var(--divider);
 	border-radius: var(--mediaList-radius, 8px);
@@ -416,7 +415,7 @@ onDeactivated(() => {
 		height: 100%;
 		pointer-events: none;
 		border-radius: inherit;
-		box-shadow: inset 0 0 0 4px var(--warn);
+		box-shadow: inset 0 0 0 4px var(--MI_THEME-warn);
 	}
 }
 
@@ -471,12 +470,12 @@ onDeactivated(() => {
 
 	.controlButton {
 		padding: 6px;
-		border-radius: calc(var(--mediaList-radius, 8px) / 2);
+		border-radius: calc(var(--MI-radius) / 2);
 		font-size: 1.05rem;
 
 		&:hover {
-			color: var(--accent);
-			background-color: var(--accentedBg);
+			color: var(--MI_THEME-accent);
+			background-color: var(--MI_THEME-accentedBg);
 		}
 
 		&:focus-visible {

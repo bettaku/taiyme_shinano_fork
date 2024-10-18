@@ -174,7 +174,7 @@ function signup() {
 		left: 0;
 		width: 500px;
 		height: 100vh;
-		background: var(--accent);
+		background: var(--MI_THEME-accent);
 
 		> .banner {
 			position: absolute;
@@ -202,7 +202,7 @@ function signup() {
 		min-width: 0;
 
 		> .header {
-			background: var(--panel);
+			background: var(--MI_THEME-panel);
 
 			> .wide {
 				line-height: 50px;
@@ -237,7 +237,7 @@ function signup() {
 		left: 0;
 		width: 240px;
 		height: 100vh;
-		background: var(--panel);
+		background: var(--MI_THEME-panel);
 
 		> .link {
 			display: block;
@@ -251,7 +251,7 @@ function signup() {
 		> .divider {
 			margin: 8px auto;
 			width: calc(100% - 32px);
-			border-top: solid 0.5px var(--divider);
+			border-top: solid 0.5px var(--MI_THEME-divider);
 		}
 
 		> .action {
@@ -266,7 +266,7 @@ function signup() {
 				border-radius: 999px;
 
 				&._button {
-					background: var(--panel);
+					background: var(--MI_THEME-panel);
 				}
 
 				&:first-child {

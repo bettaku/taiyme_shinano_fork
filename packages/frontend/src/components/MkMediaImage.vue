@@ -4,137 +4,63 @@ SPDX-License-Identifier: AGPL-3.0-only
 -->
 
 <template>
-<div :class="$style.cq">
-	<div
-		:class="{
-			[$style.root]: true,
-			[$style.rootVisible]: !hideRef,
-			[$style.rootSensitive]: sensitiveRef,
-		}"
-		tabindex="0"
-		@click="showImage"
-		@contextmenu.stop="() => {}"
-	>
-		<component
-			:is="props.disableImageLink ? 'div' : 'a'"
-			v-bind="props.disableImageLink ? {
-				title: imageRef.name,
+<div :class="[hide ? $style.hidden : $style.visible, (image.isSensitive && defaultStore.state.highlightSensitiveMedia) && $style.sensitive]" @click="onclick">
+	<component
+			:is="disableImageLink ? 'div' : 'a'"
+			v-bind="disableImageLink ? {
+				title: image.name,
 				class: $style.imageContainer,
 			} : {
-				title: imageRef.name,
+				title: image.name,
 				class: $style.imageContainer,
-				href: imageRef.url,
-				style: 'cursor: zoom-in;',
+				href: image.url,
+				style: 'cursor: zoom-in;'
 			}"
-			tabindex="-1"
 		>
-			<MkImgWithBlurhash
-				:hash="imageRef.blurhash"
-				:src="(defaultStore.state.dataSaver.media && hideRef) ? null : imageUrlRef"
-				:forceBlurhash="hideRef"
-				:cover="hideRef || props.cover"
-				:alt="imageRef.comment || imageRef.name"
-				:title="imageRef.comment || imageRef.name"
-				:width="imageRef.properties.width"
-				:height="imageRef.properties.height"
-				:style="hideRef ? 'filter: brightness(0.7);' : undefined"
+			<ImgWithBlurhash
+				:hash="image.blurhash"
+				:src="(defaultStore.state.dataSaver.media && hide) ? null : url"
+				:forceBlurhash="hide"
+				:cover="hide || cover"
+				:alt="image.comment || image.name"
+				:title="image.comment || image.name"
+				:width="image.properties.width"
+				:height="image.properties.height"
+				:style="hide ? 'filter: brightness(0.7);' : null"
 			/>
 		</component>
-
-		<template v-if="hideRef">
-			<div :class="['_noSelect', $style.hideInfo]">
-				<div :class="$style.hideInfoItem">
-					<div v-if="imageRef.isSensitive" :class="$style.hideInfoTitle">
-						<i class="ti ti-eye-exclamation"></i> {{ i18n.ts._tms.sensitiveImage }}
-					</div>
-					<div v-else :class="$style.hideInfoTitle">
-						<i class="ti ti-photo"></i> {{ i18n.ts.image }}
-					</div>
-				</div>
-				<div v-if="defaultStore.state.dataSaver.media && imageRef.size" :class="$style.hideInfoItem">
-					<div :class="$style.hideInfoText">
-						<i class="ti ti-cloud-download"></i> {{ bytes(imageRef.size) }}
-					</div>
-				</div>
-				<div v-if="props.controls" :class="$style.hideInfoItem">
-					<div :class="$style.hideInfoText">
-						{{ i18n.ts.clickToShow }}
-					</div>
+		<template v-if="hide">
+			<div :class="$style.hiddenText">
+				<div :class="$style.hiddenTextWrapper">
+					<b v-if="image.isSensitive" style="display: block;"><i class="ti ti-eye-exclamation"></i> {{ i18n.ts.sensitive }}{{ defaultStore.state.dataSaver.media ? ` (${i18n.ts.image}${image.size ? ' ' + bytes(image.size) : ''})` : '' }}</b>
+					<b v-else style="display: block;"><i class="ti ti-photo"></i> {{ defaultStore.state.dataSaver.media && image.size ? bytes(image.size) : i18n.ts.image }}</b>
+					<span v-if="controls" style="display: block;">{{ i18n.ts.clickToShow }}</span>
 				</div>
 			</div>
 		</template>
-
-		<template v-else-if="props.controls">
-			<div :class="$style.controlsUpperRight">
-				<button
-					v-tooltip="i18n.ts.hide"
-					:class="['_button', $style.controlItem]"
-					tabindex="-1"
-					@click.stop="hideRef = true"
-				>
-					<div :class="$style.controlButton"><i class="ti ti-eye-off"></i></div>
-				</button>
+		<template v-else-if="controls">
+			<div :class="$style.indicators">
+				<div v-if="['image/gif', 'image/apng'].includes(image.type)" :class="$style.indicator">GIF</div>
+				<div v-if="image.comment" :class="$style.indicator">ALT</div>
+				<div v-if="image.isSensitive" :class="$style.indicator" style="color: var(--MI_THEME-warn);" :title="i18n.ts.sensitive"><i class="ti ti-eye-exclamation"></i></div>
 			</div>
-
-			<div :class="$style.controlsLowerRight">
-				<button
-					:class="['_button', $style.controlItem]"
-					tabindex="-1"
-					@click.stop="() => {}"
-					@mousedown.prevent.stop="showImageMenu"
-				>
-					<div :class="$style.controlButton"><i class="ti ti-dots"></i></div>
-				</button>
-			</div>
-
-			<div :class="$style.controlsLowerLeft">
-				<button
-					v-if="imageRef.comment"
-					v-tooltip:dialog="imageRef.comment"
-					:class="['_button', $style.controlItem]"
-					tabindex="-1"
-					@click.stop="() => {}"
-				>
-					<div :class="$style.controlButton"><span>ALT</span></div>
-				</button>
-			</div>
-
-			<div :class="$style.controlsUpperLeft">
-				<button
-					v-if="['image/gif', 'image/apng'].includes(imageRef.type)"
-					v-tooltip:dialog="i18n.ts._tms.displayingGifFiles"
-					:class="['_button', $style.controlItem]"
-					tabindex="-1"
-					@click.stop="() => {}"
-				>
-					<div :class="$style.controlButton"><span>GIF</span></div>
-				</button>
-				<button
-					v-if="imageRef.isSensitive"
-					v-tooltip:dialog="i18n.ts._tms.displayingSensitiveFiles"
-					:class="['_button', $style.controlItem]"
-					tabindex="-1"
-					@click.stop="() => {}"
-				>
-					<div :class="$style.controlButton"><span>NSFW</span></div>
-				</button>
-			</div>
+			<button :class="$style.menu" class="_button" @click.stop="showMenu"><i class="ti ti-dots" style="vertical-align: middle;"></i></button>
+			<i class="ti ti-eye-off" :class="$style.hide" @click.stop="hide = true"></i>
 		</template>
 	</div>
-</div>
 </template>
 
 <script lang="ts" setup>
-import { computed, inject } from 'vue';
-import type * as Misskey from 'misskey-js';
-import { i18n } from '@/i18n.js';
-import { confirm, popupMenu } from '@/os.js';
-import { defaultStore } from '@/store.js';
+import { watch, ref, computed } from 'vue';
+import * as Misskey from 'misskey-js';
+import type { MenuItem } from '@/types/menu.js';
 import { getStaticImageUrl } from '@/scripts/media-proxy.js';
-import { getMediaMenu } from '@/scripts/tms/get-media-menu.js';
-import { useReactiveDriveFile } from '@/scripts/tms/use-reactive-drive-file.js';
 import bytes from '@/filters/bytes.js';
-import MkImgWithBlurhash from '@/components/MkImgWithBlurhash.vue';
+import ImgWithBlurhash from '@/components/MkImgWithBlurhash.vue';
+import { defaultStore } from '@/store.js';
+import { i18n } from '@/i18n.js';
+import * as os from '@/os.js';
+import { $i, iAmModerator } from '@/account.js';
 
 const props = withDefaults(defineProps<{
 	image: Misskey.entities.DriveFile;
@@ -148,93 +74,88 @@ const props = withDefaults(defineProps<{
 	controls: true,
 });
 
-const mock = inject<boolean>('mock', false);
+const hide = ref(true);
 
-const {
-	reactiveDriveFile: imageRef,
-	reactiveHide: hideRef,
-	reactiveSensitive: sensitiveRef,
-	reactiveIAmOwner: iAmOwnerRef,
-} = useReactiveDriveFile(() => props.image);
+const url = computed(() => (props.raw || defaultStore.state.loadRawImages)
+	? props.image.url
+	: defaultStore.state.disableShowingAnimatedImages
+		? getStaticImageUrl(props.image.url)
+		: props.image.thumbnailUrl,
+);
 
-const imageUrlRef = computed(() => {
-	if (props.raw || defaultStore.state.loadRawImages) {
-		return imageRef.value.url;
+async function onclick(ev: MouseEvent) {
+	if (!props.controls) {
+		return;
 	}
-	if (defaultStore.state.disableShowingAnimatedImages) {
-		return getStaticImageUrl(imageRef.value.url);
+
+	if (hide.value) {
+		ev.stopPropagation();
+		if (props.image.isSensitive && defaultStore.state.confirmWhenRevealingSensitiveMedia) {
+			const { canceled } = await os.confirm({
+				type: 'question',
+				text: i18n.ts.sensitiveMediaRevealConfirm,
+			});
+			if (canceled) return;
+		}
+
+		hide.value = false;
 	}
-	return imageRef.value.thumbnailUrl;
+}
+
+	// Plugin:register_note_view_interruptor を使って書き換えられる可能性があるためwatchする
+watch(() => props.image, () => {
+	hide.value = (defaultStore.state.nsfw === 'force' || defaultStore.state.dataSaver.media) ? true : (props.image.isSensitive && defaultStore.state.nsfw !== 'ignore');
+}, {
+	deep: true,
+	immediate: true,
 });
 
-const showImage = async () => {
-	if (!props.controls || !hideRef.value) return;
-	if (sensitiveRef.value && defaultStore.state.confirmWhenRevealingSensitiveMedia) {
-		const { canceled } = await confirm({
-			type: 'question',
-			text: i18n.ts.sensitiveMediaRevealConfirm,
-		});
-		if (canceled) return;
-	}
-	hideRef.value = false;
-};
+function showMenu(ev: MouseEvent) {
+	const menuItems: MenuItem[] = [];
 
-const showImageMenu = (ev: MouseEvent) => {
-	popupMenu(getMediaMenu({
-		reactiveDriveFile: imageRef,
-		reactiveHide: hideRef,
-		reactiveSensitive: sensitiveRef,
-		reactiveIAmOwner: iAmOwnerRef,
-		mock,
-		additionalMenu: [],
-	}), ev.currentTarget ?? ev.target);
-};
+	menuItems.push({
+		text: i18n.ts.hide,
+		icon: 'ti ti-eye-off',
+		action: () => {
+			hide.value = true;
+		},
+	});
+
+	if (iAmModerator) {
+		menuItems.push({
+			text: i18n.ts.markAsSensitive,
+			icon: 'ti ti-eye-exclamation',
+			danger: true,
+			action: () => {
+				os.apiWithDialog('drive/files/update', { fileId: props.image.id, isSensitive: true });
+			},
+		});
+	}
+
+	if ($i?.id === props.image.userId) {
+		menuItems.push({
+			type: 'divider',
+		}, {
+			type: 'link',
+			text: i18n.ts._fileViewer.title,
+			icon: 'ti ti-info-circle',
+			to: `/my/drive/file/${props.image.id}`,
+		});
+	}
+
+	os.popupMenu(menuItems, ev.currentTarget ?? ev.target);
+}
+
 </script>
 
 <style lang="scss" module>
-.cq {
-	container: mediaImage / inline-size;
-}
-
-.root {
-	--mediaImage-scale: 1;
-	box-sizing: border-box;
+.hidden {
 	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden; // fallback (overflow: clip)
-	overflow: clip;
-	border-radius: var(--mediaList-radius, 8px);
-
-	&:focus-visible {
-		outline: none;
-	}
 }
 
-.rootVisible {
-	background-color: var(--bg);
-	background-image: repeating-linear-gradient(
-		135deg,
-		transparent 0px 10px,
-		var(--c) 6px 16px
-	);
+.sensitive {
+	position: relative;
 
-	// NOTE: iOS/iPadOS環境でクラッシュする https://github.com/taiyme/misskey/issues/293
-	html[data-browser-engine=webkit] & {
-		background-image: unset !important;
-	}
-
-	&,
-	html[data-color-scheme=light] & {
-		--c: color(from color-mix(in srgb, var(--bg), black 15%) srgb r g b / 0.25);
-	}
-
-	html[data-color-scheme=dark] & {
-		--c: color(from color-mix(in srgb, var(--bg), white 15%) srgb r g b / 0.5);
-	}
-}
-
-.rootSensitive {
 	&::after {
 		content: "";
 		position: absolute;
@@ -244,11 +165,11 @@ const showImageMenu = (ev: MouseEvent) => {
 		height: 100%;
 		pointer-events: none;
 		border-radius: inherit;
-		box-shadow: inset 0 0 0 4px var(--warn);
+		box-shadow: inset 0 0 0 4px var(--MI_THEME-warn);
 	}
 }
 
-.hideInfo {
+.hiddenText {
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -256,31 +177,64 @@ const showImageMenu = (ev: MouseEvent) => {
 	height: 100%;
 	z-index: 1;
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
-
-	> .hideInfoItem {
-		max-width: 100%;
-	}
 }
 
-%HideInfoText {
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	font-size: clamp(6px, calc(12px * var(--mediaImage-scale)), 12px);
+.hide {
+	display: block;
+	position: absolute;
+	border-radius: 6px;
+	background-color: var(--MI_THEME-fg);
+	color: var(--MI_THEME-accentLighten);
+	font-size: 12px;
+	opacity: .5;
+	padding: 5px 8px;
+	text-align: center;
+	cursor: pointer;
+	top: 12px;
+	right: 12px;
+}
+
+.hiddenTextWrapper {
+	display: table-cell;
+	text-align: center;
+	font-size: 0.8em;
 	color: #fff;
 }
 
-.hideInfoTitle {
-	@extend %HideInfoText;
-	font-weight: 700;
+.visible {
+	position: relative;
+	//box-shadow: 0 0 0 1px var(--MI_THEME-divider) inset;
+	background: var(--MI_THEME-bg);
+	background-size: 16px 16px;
 }
 
-.hideInfoText {
-	@extend %HideInfoText;
+html[data-color-scheme=dark] .visible {
+	--c: rgb(255 255 255 / 2%);
+	background-image: linear-gradient(45deg, var(--c) 16.67%, var(--MI_THEME-bg) 16.67%, var(--MI_THEME-bg) 50%, var(--c) 50%, var(--c) 66.67%, var(--MI_THEME-bg) 66.67%, var(--MI_THEME-bg) 100%);
+}
+
+html[data-color-scheme=light] .visible {
+	--c: rgb(0 0 0 / 2%);
+	background-image: linear-gradient(45deg, var(--c) 16.67%, var(--MI_THEME-bg) 16.67%, var(--MI_THEME-bg) 50%, var(--c) 50%, var(--c) 66.67%, var(--MI_THEME-bg) 66.67%, var(--MI_THEME-bg) 100%);
+}
+
+.menu {
+	display: block;
+	position: absolute;
+	border-radius: 999px;
+	background-color: rgba(0, 0, 0, 0.3);
+	-webkit-backdrop-filter: var(--MI-blur, blur(15px));
+	backdrop-filter: var(--MI-blur, blur(15px));
+	color: #fff;
+	font-size: 0.8em;
+	width: 28px;
+	height: 28px;
+	text-align: center;
+	bottom: 10px;
+	right: 10px;
 }
 
 .imageContainer {
@@ -293,158 +247,24 @@ const showImageMenu = (ev: MouseEvent) => {
 	background-repeat: no-repeat;
 }
 
-%Controls {
+.indicators {
+	display: inline-flex;
 	position: absolute;
-	inset: auto;
-	display: flex;
-
-	&:empty {
-		display: none;
-	}
+	top: 10px;
+	left: 10px;
+	pointer-events: none;
+	opacity: .5;
+	gap: 6px;
 }
 
-%ControlItem {
-	text-align: center;
-	font-size: clamp(6px, calc(12px * var(--mediaImage-scale)), 12px);
-	padding:
-		clamp(3px, calc(6px * var(--mediaImage-scale)), 6px)
-		clamp(2px, calc(4px * var(--mediaImage-scale)), 4px);
-
-	&:first-child {
-		padding-left: clamp(4px, calc(8px * var(--mediaImage-scale)), 8px);
-	}
-
-	&:last-child {
-		padding-right: clamp(4px, calc(8px * var(--mediaImage-scale)), 8px);
-	}
-
-	&:focus-visible {
-		outline: none;
-	}
-}
-
-.controlsUpperRight {
-	@extend %Controls;
-	top: 0;
-	right: 0;
-
-	> .controlItem {
-		@extend %ControlItem;
-		padding-bottom: 0;
-
-		&:first-child {
-			padding-left: 0;
-		}
-	}
-}
-
-.controlsLowerRight {
-	@extend %Controls;
-	right: 0;
-	bottom: 0;
-
-	> .controlItem {
-		@extend %ControlItem;
-		padding-top: 0;
-
-		&:first-child {
-			padding-left: 0;
-		}
-	}
-}
-
-.controlsLowerLeft {
-	@extend %Controls;
-	bottom: 0;
-	left: 0;
-
-	> .controlItem {
-		@extend %ControlItem;
-		padding-top: 0;
-
-		&:last-child {
-			padding-right: 0;
-		}
-	}
-}
-
-.controlsUpperLeft {
-	@extend %Controls;
-	top: 0;
-	left: 0;
-
-	> .controlItem {
-		@extend %ControlItem;
-		padding-bottom: 0;
-
-		&:last-child {
-			padding-right: 0;
-		}
-	}
-}
-
-.controlButton {
-	display: block;
-	border-radius: clamp(3px, calc(6px * var(--mediaImage-scale)), 6px);
-	padding:
-		clamp(3px, calc(6px * var(--mediaImage-scale)), 6px)
-		clamp(4px, calc(8px * var(--mediaImage-scale)), 8px);
-	background-color: rgba(0, 0, 0, 0.5);
-	color: #fff;
-	transition: background-color 0.1s ease;
-
-	&:hover {
-		background-color: rgba(0, 0, 0, 0.7);
-	}
-}
-
-@container mediaImage (max-width: 250px) {
-	.root {
-		--mediaImage-scale: 0.90;
-	}
-}
-
-@container mediaImage (max-width: 200px) {
-	.root {
-		--mediaImage-scale: 0.85;
-	}
-}
-
-@container mediaImage (max-width: 150px) {
-	.root {
-		--mediaImage-scale: 0.80;
-	}
-}
-
-@container mediaImage (max-width: 130px) {
-	.root {
-		--mediaImage-scale: 0.75;
-	}
-}
-
-@container mediaImage (max-width: 120px) {
-	.root {
-		--mediaImage-scale: 0.70;
-	}
-}
-
-@container mediaImage (max-width: 110px) {
-	.root {
-		--mediaImage-scale: 0.65;
-	}
-}
-
-@container mediaImage (max-width: 100px) {
-	.root {
-		--mediaImage-scale: 0.60;
-	}
-
-	.controlsLowerLeft {
-		display: none;
-	}
-
-	.controlsUpperLeft {
-		display: none;
-	}
+.indicator {
+	/* Hardcode to black because either --MI_THEME-bg or --MI_THEME-fg makes it hard to read in dark/light mode */
+	background-color: black;
+	border-radius: 6px;
+	color: var(--MI_THEME-accentLighten);
+	display: inline-block;
+	font-weight: bold;
+	font-size: 0.8em;
+	padding: 2px 5px;
 }
 </style>

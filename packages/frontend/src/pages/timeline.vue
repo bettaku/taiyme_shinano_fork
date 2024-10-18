@@ -9,20 +9,21 @@ SPDX-License-Identifier: AGPL-3.0-only
 	<MkSpacer :contentMax="800">
 		<MkHorizontalSwipe v-model:tab="src" :tabs="$i ? headerTabs : headerTabsWhenNotLogin">
 			<div :key="src" ref="rootEl">
-				<MkInfo v-if="isBasicTimeline(src) && !defaultStore.reactiveState.timelineTutorials.value[src]" style="margin-bottom: var(--margin);" closable @close="closeTutorial()">
+				<MkInfo v-if="isBasicTimeline(src) && !defaultStore.reactiveState.timelineTutorials.value[src]" style="margin-bottom: var(--MI-margin);" closable @close="closeTutorial()">
 					{{ i18n.ts._timelineDescription[src] }}
 				</MkInfo>
-				<MkPostForm v-if="defaultStore.reactiveState.showFixedPostForm.value" :class="$style.postForm" class="post-form _panel" fixed style="margin-bottom: var(--margin);"/>
+				<MkPostForm v-if="defaultStore.reactiveState.showFixedPostForm.value" :class="$style.postForm" class="post-form _panel" fixed style="margin-bottom: var(--MI-margin);"/>
 				<div v-if="queue > 0" :class="$style.new"><button class="_buttonPrimary" :class="$style.newButton" @click="top()">{{ i18n.ts.newNoteRecived }}</button></div>
 				<div :class="$style.tl">
 					<MkTimeline
 						ref="tlComponent"
-						:key="src + withRenotes + withReplies + onlyFiles"
+						:key="src + withRenotes + withReplies + onlyFiles + withLocalOnly"
 						:src="src.split(':')[0]"
 						:list="src.split(':')[1]"
 						:withRenotes="withRenotes"
 						:withReplies="withReplies"
 						:onlyFiles="onlyFiles"
+						:withLocalOnly="withLocalOnly"
 						:sound="true"
 						@queue="queueUpdated"
 					/>
@@ -37,7 +38,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 import { computed, watch, provide, shallowRef, ref, onMounted, onActivated } from 'vue';
 import { scroll } from '@@/js/scroll.js';
 import type { Tab } from '@/components/global/MkPageHeader.tabs.vue';
-import type { BasicTimelineType } from '@/timelines.js';
 import type { MenuItem } from '@/types/menu.js';
 import MkTimeline from '@/components/MkTimeline.vue';
 import MkInfo from '@/components/MkInfo.vue';
@@ -52,7 +52,8 @@ import { antennasCache, userListsCache, favoritedChannelsCache } from '@/cache.j
 import { deviceKind } from '@/scripts/device-kind.js';
 import { deepMerge } from '@/scripts/merge.js';
 import { miLocalStorage } from '@/local-storage.js';
-import { availableBasicTimelines, hasWithReplies, isAvailableBasicTimeline, isBasicTimeline, basicTimelineIconClass } from '@/timelines.js';
+import { availableBasicTimelines, hasWithReplies, isAvailableBasicTimeline, isBasicTimeline, basicTimelineIconClass, hasWithLocalOnly } from '@/timelines.js';
+import type { BasicTimelineType } from '@/timelines.js';
 
 provide('shouldOmitHeaderTitle', true);
 
@@ -71,6 +72,10 @@ const withRenotes = computed<boolean>({
 	get: () => defaultStore.reactiveState.tl.value.filter.withRenotes,
 	set: (x) => saveTlFilter('withRenotes', x),
 });
+const withLocalOnly = computed<boolean>({
+	get: () => defaultStore.reactiveState.tl.value.filter.withLocalOnly,
+	set: (x) => saveTlFilter('withLocalOnly', x),
+});
 
 // computed内での無限ループを防ぐためのフラグ
 const localSocialTLFilterSwitchStore = ref<'withReplies' | 'onlyFiles' | false>(
@@ -82,7 +87,7 @@ const localSocialTLFilterSwitchStore = ref<'withReplies' | 'onlyFiles' | false>(
 const withReplies = computed<boolean>({
 	get: () => {
 		if (!$i) return false;
-		if (['local', 'social'].includes(src.value) && localSocialTLFilterSwitchStore.value === 'onlyFiles') {
+		if (['local', 'social', 'vmimi-relay', 'vmimi-relay-social'].includes(src.value) && localSocialTLFilterSwitchStore.value === 'onlyFiles') {
 			return false;
 		} else {
 			return defaultStore.reactiveState.tl.value.filter.withReplies;
@@ -92,7 +97,7 @@ const withReplies = computed<boolean>({
 });
 const onlyFiles = computed<boolean>({
 	get: () => {
-		if (['local', 'social'].includes(src.value) && localSocialTLFilterSwitchStore.value === 'withReplies') {
+		if (['local', 'social', 'vmimi-relay', 'vmimi-relay-social'].includes(src.value) && localSocialTLFilterSwitchStore.value === 'withReplies') {
 			return false;
 		} else {
 			return defaultStore.reactiveState.tl.value.filter.onlyFiles;
@@ -285,6 +290,14 @@ const headerActions = computed(() => {
 					disabled: isBasicTimeline(src.value) && hasWithReplies(src.value) ? withReplies : false,
 				});
 
+				if (isBasicTimeline(src.value) && hasWithLocalOnly(src.value)) {
+					menuItems.push({
+						type: 'switch',
+						text: i18n.ts.showLocalOnlyInTimeline,
+						ref: withLocalOnly,
+					});
+				}
+
 				os.popupMenu(menuItems, ev.currentTarget ?? ev.target);
 			},
 		},
@@ -344,31 +357,30 @@ definePageMetadata(() => ({
 <style lang="scss" module>
 .new {
 	position: sticky;
-	top: calc(var(--stickyTop, 0px) + 16px);
+	top: calc(var(--MI-stickyTop, 0px) + 16px);
 	z-index: 1000;
 	width: 100%;
 	margin: calc(-0.675em - 8px) 0;
 
 	&:first-child {
-		margin-top: calc(-0.675em - 8px - var(--margin));
+		margin-top: calc(-0.675em - 8px - var(--MI-margin));
 	}
 }
 
 .newButton {
 	display: block;
-	margin: var(--margin) auto 0 auto;
+	margin: var(--MI-margin) auto 0 auto;
 	padding: 8px 16px;
 	border-radius: 32px;
 }
 
 .postForm {
-	border-radius: var(--radius);
+	border-radius: var(--MI-radius);
 }
 
 .tl {
-	background: var(--bg);
-	border-radius: var(--radius);
-	overflow: hidden; // fallback (overflow: clip)
+	background: var(--MI_THEME-bg);
+	border-radius: var(--MI-radius);
 	overflow: clip;
 }
 </style>

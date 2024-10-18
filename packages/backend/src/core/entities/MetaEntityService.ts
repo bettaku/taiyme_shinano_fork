@@ -96,6 +96,7 @@ export class MetaEntityService {
 			recaptchaSiteKey: instance.recaptchaSiteKey,
 			enableTurnstile: instance.enableTurnstile,
 			turnstileSiteKey: instance.turnstileSiteKey,
+			enableTestcaptcha: instance.enableTestcaptcha,
 			swPublickey: instance.swPublicKey,
 			themeColor: instance.themeColor,
 			mascotImageUrl: instance.mascotImageUrl ?? '/assets/ai.png',
@@ -157,6 +158,7 @@ export class MetaEntityService {
 			features: {
 				localTimeline: instance.policies.ltlAvailable,
 				globalTimeline: instance.policies.gtlAvailable,
+				vmimiRelayTimeline: instance.policies.vrtlAvailable,
 				registration: !instance.disableRegistration,
 				emailRequiredForSignup: instance.emailRequiredForSignup,
 				hcaptcha: instance.enableHcaptcha,
