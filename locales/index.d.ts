@@ -5039,10 +5039,6 @@ export interface Locale extends ILocale {
      */
     readonly "withSensitive": string;
     /**
-     * ローカルのみのノートを表示
-     */
-    readonly "showLocalOnlyInTimeline": string;
-    /**
      * {name}のセンシティブなファイルを含む投稿
      */
     readonly "userSaysSomethingSensitive": ParameterizedString<"name">;
@@ -6811,10 +6807,6 @@ export interface Locale extends ILocale {
             readonly "high": string;
         };
         readonly "_options": {
-            /**
-             * Vミミタイムラインの閲覧
-             */
-            readonly "vrtlAvailable": string;
             /**
              * グローバルタイムラインの閲覧
              */
