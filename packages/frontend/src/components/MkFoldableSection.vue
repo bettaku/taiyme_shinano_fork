@@ -84,20 +84,7 @@ function afterLeave(el: Element) {
 }
 
 onMounted(() => {
-	function getParentBg(el?: HTMLElement | null): string {
-		if (el == null || el.tagName === 'BODY') return 'var(--MI_THEME-bg)';
-		const background = el.style.background || el.style.backgroundColor;
-		if (background) {
-			return background;
-		} else {
-			return getParentBg(el.parentElement);
-		}
-	}
-
-	const rawBg = getParentBg(rootEl.value);
-	const _bg = tinycolor(rawBg.startsWith('var(') ? getComputedStyle(document.documentElement).getPropertyValue(rawBg.slice(4, -1)) : rawBg);
-	_bg.setAlpha(0.85);
-	bg.value = _bg.toRgbString();
+	parentBg.value = getBgColor(rootEl.value?.parentElement);
 });
 </script>
 
@@ -122,8 +109,9 @@ onMounted(() => {
 	z-index: 10;
 	position: sticky;
 	top: var(--MI-stickyTop, 0px);
-	-webkit-backdrop-filter: var(--MI-blur, blur(8px));
-	backdrop-filter: var(--MI-blur, blur(20px));
+	-webkit-backdrop-filter: var(--MI-blur, blur(15px));
+	backdrop-filter: var(--MI-blur, blur(15px));
+	background-color: color(from v-bind("parentBg ?? 'var(--MI_THEME-bg)'") srgb r g b / 0.85);
 }
 
 .title {
