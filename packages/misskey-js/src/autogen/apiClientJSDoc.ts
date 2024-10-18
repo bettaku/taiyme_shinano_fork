@@ -3157,7 +3157,7 @@ declare module '../api.js' {
      * 
      * **Credential required**: *Yes* / **Permission**: *read:account*
      */
-    request<E extends 'notes/vmimi-relay-hybrid-timeline', P extends Endpoints[E]['req']>(
+    request<E extends 'notes/vmimi-hybrid-timeline', P extends Endpoints[E]['req']>(
       endpoint: E,
       params: P,
       credential?: string | null,

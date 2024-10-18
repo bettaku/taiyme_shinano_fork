@@ -288,7 +288,7 @@ import * as ep___notes_favorites_delete from './endpoints/notes/favorites/delete
 import * as ep___notes_featured from './endpoints/notes/featured.js';
 import * as ep___notes_globalTimeline from './endpoints/notes/global-timeline.js';
 import * as ep___notes_vmimiRelayTimeline from './endpoints/notes/vmimi-relay-timeline.js';
-import * as ep___notes_vmimiRelayHybridTimeline from './endpoints/notes/vmimi-relay-hybrid-timeline.js';
+import * as ep___notes_vmimiRelayHybridTimeline from './endpoints/notes/vmimi-hybrid-timeline.js';
 import * as ep___notes_hybridTimeline from './endpoints/notes/hybrid-timeline.js';
 import * as ep___notes_localTimeline from './endpoints/notes/local-timeline.js';
 import * as ep___notes_mentions from './endpoints/notes/mentions.js';
@@ -677,7 +677,7 @@ const $notes_favorites_delete: Provider = { provide: 'ep:notes/favorites/delete'
 const $notes_featured: Provider = { provide: 'ep:notes/featured', useClass: ep___notes_featured.default };
 const $notes_globalTimeline: Provider = { provide: 'ep:notes/global-timeline', useClass: ep___notes_globalTimeline.default };
 const $notes_vmimiRelayTimeline: Provider = { provide: 'ep:notes/vmimi-relay-timeline', useClass: ep___notes_vmimiRelayTimeline.default };
-const $notes_vmimiRelayHybridTimeline: Provider = { provide: 'ep:notes/vmimi-relay-hybrid-timeline', useClass: ep___notes_vmimiRelayHybridTimeline.default };
+const $notes_vmimiRelayHybridTimeline: Provider = { provide: 'ep:notes/vmimi-hybrid-timeline', useClass: ep___notes_vmimiRelayHybridTimeline.default };
 const $notes_hybridTimeline: Provider = { provide: 'ep:notes/hybrid-timeline', useClass: ep___notes_hybridTimeline.default };
 const $notes_localTimeline: Provider = { provide: 'ep:notes/local-timeline', useClass: ep___notes_localTimeline.default };
 const $notes_mentions: Provider = { provide: 'ep:notes/mentions', useClass: ep___notes_mentions.default };

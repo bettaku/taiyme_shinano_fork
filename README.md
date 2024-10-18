@@ -1,6 +1,6 @@
 # taiyme (taiy fork)
 
-[taiyme](https://github.com/taiyme/misskey)は、[Misskey](https://github.com/misskey-dev/misskey)から派生したオープンソースのソフトウェアです。
+[taiyme](https://github.com/taiyme/misskey)より派生したフォーク。
 
 ## 機能のリクエスト・問題の報告
 

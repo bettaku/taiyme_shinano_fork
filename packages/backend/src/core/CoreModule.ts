@@ -79,6 +79,7 @@ import { FanoutTimelineService } from './FanoutTimelineService.js';
 import { ChannelFollowingService } from './ChannelFollowingService.js';
 import { RegistryApiService } from './RegistryApiService.js';
 import { ReversiService } from './ReversiService.js';
+import { VmimiRelayService } from './VmimiRelayService.js';
 
 import { ChartLoggerService } from './chart/ChartLoggerService.js';
 import FederationChart from './chart/charts/federation.js';
@@ -229,6 +230,7 @@ const $FanoutTimelineEndpointService: Provider = { provide: 'FanoutTimelineEndpo
 const $ChannelFollowingService: Provider = { provide: 'ChannelFollowingService', useExisting: ChannelFollowingService };
 const $RegistryApiService: Provider = { provide: 'RegistryApiService', useExisting: RegistryApiService };
 const $ReversiService: Provider = { provide: 'ReversiService', useExisting: ReversiService };
+const $VmimiRelayService: Provider = { provide: 'VmimiRelayService', useExisting: VmimiRelayService };
 
 const $ChartLoggerService: Provider = { provide: 'ChartLoggerService', useExisting: ChartLoggerService };
 const $FederationChart: Provider = { provide: 'FederationChart', useExisting: FederationChart };
@@ -381,6 +383,7 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		ChannelFollowingService,
 		RegistryApiService,
 		ReversiService,
+		VmimiRelayService,
 
 		ChartLoggerService,
 		FederationChart,
@@ -529,6 +532,7 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		$ChannelFollowingService,
 		$RegistryApiService,
 		$ReversiService,
+		$VmimiRelayService,
 
 		$ChartLoggerService,
 		$FederationChart,
@@ -678,6 +682,7 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		ChannelFollowingService,
 		RegistryApiService,
 		ReversiService,
+		VmimiRelayService,
 
 		FederationChart,
 		NotesChart,
@@ -824,6 +829,7 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		$ChannelFollowingService,
 		$RegistryApiService,
 		$ReversiService,
+		$VmimiRelayService,
 
 		$FederationChart,
 		$NotesChart,

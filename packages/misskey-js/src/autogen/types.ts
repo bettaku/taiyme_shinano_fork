@@ -2730,14 +2730,14 @@ export type paths = {
      */
     post: operations['notes___vmimi-relay-timeline'];
   };
-  '/notes/vmimi-relay-hybrid-timeline': {
+  '/notes/vmimi-hybrid-timeline': {
     /**
-     * notes/vmimi-relay-hybrid-timeline
+     * notes/vmimi-hybrid-timeline
      * @description No description provided.
      *
      * **Credential required**: *Yes* / **Permission**: *read:account*
      */
-    post: operations['notes___vmimi-relay-hybrid-timeline'];
+    post: operations['notes___vmimi-hybrid-timeline'];
   };
   '/notes/hybrid-timeline': {
     /**
@@ -21996,12 +21996,12 @@ export type operations = {
     };
   };
   /**
-   * notes/vmimi-relay-hybrid-timeline
+   * notes/vmimi-hybrid-timeline
    * @description No description provided.
    *
    * **Credential required**: *Yes* / **Permission**: *read:account*
    */
-  'notes___vmimi-relay-hybrid-timeline': {
+  'notes___vmimi-hybrid-timeline': {
     requestBody: {
       content: {
         'application/json': {

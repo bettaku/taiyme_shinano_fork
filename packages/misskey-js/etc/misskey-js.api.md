@@ -1666,8 +1666,8 @@ declare namespace entities {
         NotesGlobalTimelineResponse,
         NotesVmimiRelayTimelineRequest,
         NotesVmimiRelayTimelineResponse,
-        NotesVmimiRelayHybridTimelineRequest,
-        NotesVmimiRelayHybridTimelineResponse,
+        NotesVmimiHybridTimelineRequest,
+        NotesVmimiHybridTimelineResponse,
         NotesHybridTimelineRequest,
         NotesHybridTimelineResponse,
         NotesLocalTimelineRequest,
@@ -2823,10 +2823,10 @@ type NotesUserListTimelineRequest = operations['notes___user-list-timeline']['re
 type NotesUserListTimelineResponse = operations['notes___user-list-timeline']['responses']['200']['content']['application/json'];
 
 // @public (undocumented)
-type NotesVmimiRelayHybridTimelineRequest = operations['notes___vmimi-relay-hybrid-timeline']['requestBody']['content']['application/json'];
+type NotesVmimiHybridTimelineRequest = operations['notes___vmimi-hybrid-timeline']['requestBody']['content']['application/json'];
 
 // @public (undocumented)
-type NotesVmimiRelayHybridTimelineResponse = operations['notes___vmimi-relay-hybrid-timeline']['responses']['200']['content']['application/json'];
+type NotesVmimiHybridTimelineResponse = operations['notes___vmimi-hybrid-timeline']['responses']['200']['content']['application/json'];
 
 // @public (undocumented)
 type NotesVmimiRelayTimelineRequest = operations['notes___vmimi-relay-timeline']['requestBody']['content']['application/json'];

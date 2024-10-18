@@ -40,6 +40,7 @@ const props = withDefaults(defineProps<{
 	withReplies?: boolean;
 	onlyFiles?: boolean;
 	withLocalOnly?: boolean;
+	withLocalOnly?: boolean;
 }>(), {
 	withRenotes: true,
 	withReplies: false,
@@ -205,6 +206,21 @@ function updatePaginationQuery() {
 			withReplies: props.withReplies,
 			withFiles: props.onlyFiles ? true : undefined,
 		};
+	} else if (props.src === 'vmimi') {
+		endpoint = 'notes/vmimi-relay-timeline';
+		query = {
+			withRenotes: props.withRenotes,
+			withFiles: props.onlyFiles ? true : undefined,
+			withReplies: props.withReplies,
+		};
+	} else if (props.src === 'vmimiHybrid') {
+		endpoint = 'notes/vmimi-hybrid-timeline';
+		query = {
+			withRenotes: props.withRenotes,
+			withFiles: props.onlyFiles ? true : undefined,
+			withReplies: props.withReplies,
+			withLocalOnly: props.withLocalOnly,
+		};
 	} else if (props.src === 'global') {
 		endpoint = 'notes/global-timeline';
 		query = {
@@ -220,7 +236,7 @@ function updatePaginationQuery() {
 			withLocalOnly: props.withLocalOnly,
 		};
 	} else if (props.src === 'vmimi-relay-social') {
-		endpoint = 'notes/vmimi-relay-hybrid-timeline';
+		endpoint = 'notes/vmimi-hybrid-timeline';
 		query = {
 			withRenotes: props.withRenotes,
 			withFiles: props.onlyFiles ? true : undefined,
