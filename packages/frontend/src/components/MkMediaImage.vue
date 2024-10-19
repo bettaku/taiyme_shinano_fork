@@ -192,11 +192,13 @@ const showImageMenu = (ev: MouseEvent) => {
 </script>
 
 <style lang="scss" module>
-.hidden {
-	position: relative;
+.cq {
+	container: mediaImage / inline-size;
 }
 
-.sensitive {
+.root {
+	--mediaImage-scale: 1;
+	box-sizing: border-box;
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -246,7 +248,7 @@ const showImageMenu = (ev: MouseEvent) => {
 	}
 }
 
-.hiddenText {
+.hideInfo {
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -254,6 +256,7 @@ const showImageMenu = (ev: MouseEvent) => {
 	height: 100%;
 	z-index: 1;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
@@ -290,8 +293,7 @@ const showImageMenu = (ev: MouseEvent) => {
 	background-repeat: no-repeat;
 }
 
-.indicators {
-	display: inline-flex;
+%Controls {
 	position: absolute;
 	inset: auto;
 	display: flex;
