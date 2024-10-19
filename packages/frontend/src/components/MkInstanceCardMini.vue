@@ -69,9 +69,8 @@ $bodyInfoHieght: 16px;
 	display: flex;
 	align-items: center;
 	padding: 16px;
-	background: var(--MI_THEME-panel);
 	border-radius: 8px;
-	background-color: var(--panel);
+	background-color: var(--MI_THEME-panel);
 
 	&.isNotResponding,
 	&.isSilenced,
@@ -92,37 +91,37 @@ $bodyInfoHieght: 16px;
 	&,
 	html[data-color-scheme=light] & {
 		&.isNotResponding {
-			--c: color(from color-mix(in srgb, var(--panel), orange 50%) srgb r g b / 0.25);
+			--c: color(from color-mix(in srgb, var(--MI_THEME-panel), orange 50%) srgb r g b / 0.25);
 		}
 
 		&.isSilenced {
-			--c: color(from color-mix(in srgb, var(--panel), blue 50%) srgb r g b / 0.25);
+			--c: color(from color-mix(in srgb, var(--MI_THEME-panel), blue 50%) srgb r g b / 0.25);
 		}
 
 		&.isSuspended {
-			--c: color(from color-mix(in srgb, var(--panel), black 15%) srgb r g b / 0.25);
+			--c: color(from color-mix(in srgb, var(--MI_THEME-panel), black 15%) srgb r g b / 0.25);
 		}
 
 		&.isBlocked {
-			--c: color(from color-mix(in srgb, var(--panel), red 50%) srgb r g b / 0.25);
+			--c: color(from color-mix(in srgb, var(--MI_THEME-panel), red 50%) srgb r g b / 0.25);
 		}
 	}
 
 	html[data-color-scheme=dark] & {
 		&.isNotResponding {
-			--c: color(from color-mix(in srgb, var(--panel), orange 50%) srgb r g b / 0.5);
+			--c: color(from color-mix(in srgb, var(--MI_THEME-panel), orange 50%) srgb r g b / 0.5);
 		}
 
 		&.isSilenced {
-			--c: color(from color-mix(in srgb, var(--panel), blue 50%) srgb r g b / 0.5);
+			--c: color(from color-mix(in srgb, var(--MI_THEME-panel), blue 50%) srgb r g b / 0.5);
 		}
 
 		&.isSuspended {
-			--c: color(from color-mix(in srgb, var(--panel), white 15%) srgb r g b / 0.5);
+			--c: color(from color-mix(in srgb, var(--MI_THEME-panel), white 15%) srgb r g b / 0.5);
 		}
 
 		&.isBlocked {
-			--c: color(from color-mix(in srgb, var(--panel), red 50%) srgb r g b / 0.5);
+			--c: color(from color-mix(in srgb, var(--MI_THEME-panel), red 50%) srgb r g b / 0.5);
 		}
 	}
 }
@@ -136,12 +135,13 @@ $bodyInfoHieght: 16px;
 	margin-right: 12px;
 }
 
-	> :global(.body) {
-		flex: 1;
-		overflow: hidden;
-		font-size: 0.9em;
-		color: var(--MI_THEME-fg);
-		padding-right: 8px;
+.body {
+	flex: 1;
+	overflow: hidden;
+	font-size: 0.9em;
+	color: var(--MI_THEME-fg);
+	padding-right: 8px;
+}
 
 .host {
 	display: block;
@@ -163,32 +163,7 @@ $bodyInfoHieght: 16px;
 	text-overflow: ellipsis;
 }
 
-	> :global(.chart) {
-		height: 30px;
-	}
-
-  &:global(.blue) {
-    --c: rgba(0, 42, 255, 0.15);
-    background-image: linear-gradient(45deg, var(--c) 16.67%, transparent 16.67%, transparent 50%, var(--c) 50%, var(--c) 66.67%, transparent 66.67%, transparent 100%);
-    background-size: 16px 16px;
-  }
-
-	&:global(.yellow) {
-		--c: rgb(255 196 0 / 15%);
-		background-image: linear-gradient(45deg, var(--c) 16.67%, transparent 16.67%, transparent 50%, var(--c) 50%, var(--c) 66.67%, transparent 66.67%, transparent 100%);
-		background-size: 16px 16px;
-	}
-
-	&:global(.red) {
-		--c: rgb(255 0 0 / 15%);
-		background-image: linear-gradient(45deg, var(--c) 16.67%, transparent 16.67%, transparent 50%, var(--c) 50%, var(--c) 66.67%, transparent 66.67%, transparent 100%);
-		background-size: 16px 16px;
-	}
-
-	&:global(.gray) {
-		--c: var(--MI_THEME-bg);
-		background-image: linear-gradient(45deg, var(--c) 16.67%, transparent 16.67%, transparent 50%, var(--c) 50%, var(--c) 66.67%, transparent 66.67%, transparent 100%);
-		background-size: 16px 16px;
-	}
+.chart {
+	height: 30px;
 }
 </style>

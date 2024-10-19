@@ -53,15 +53,15 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<template #icon><i class="ti ti-flask"></i></template>
 						<template #label>{{ i18n.ts.experimentalFeatures }}</template>
 
-				<div class="_gaps_m">
-					<MkSwitch v-model="enableCondensedLine">
-						<template #label>Enable condensed line</template>
-					</MkSwitch>
-					<MkSwitch v-model="skipNoteRender">
-						<template #label>Enable note render skipping</template>
-					</MkSwitch>
-				</div>
-			</MkFolder>
+						<div class="_gaps_m">
+							<MkSwitch v-model="enableCondensedLine">
+								<template #label>Enable condensed line</template>
+							</MkSwitch>
+							<MkSwitch v-model="skipNoteRender">
+								<template #label>Enable note render skipping</template>
+							</MkSwitch>
+						</div>
+					</MkFolder>
 
 					<MkFolder>
 						<template #icon><i class="ti ti-code"></i></template>
@@ -106,6 +106,7 @@ import { defaultStore } from '@/store.js';
 import { signout, signinRequired } from '@/account.js';
 import { i18n } from '@/i18n.js';
 import { definePageMetadata } from '@/scripts/page-metadata.js';
+import { reloadAsk } from '@/scripts/reload-ask.js';
 import FormSection from '@/components/form/section.vue';
 
 const $i = signinRequired();

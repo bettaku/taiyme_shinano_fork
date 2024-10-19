@@ -316,19 +316,23 @@ async function search() {
 </script>
 
 <style lang="scss" module>
-.userItem {
-	display: flex;
-	justify-content: center;
+.userSelectLabel {
+	font-size: 0.85em;
+	padding: 0 0 8px;
+	user-select: none;
 }
-.addMeButton {
-  border: 2px dashed var(--MI_THEME-fgTransparent);
-	padding: 12px;
-	margin-right: 16px;
+
+.userSelectButtons {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 16px;
 }
-.addUserButton {
-  border: 2px dashed var(--MI_THEME-fgTransparent);
+
+.userSelectButton {
+	width: 100%;
+	height: 100%;
 	padding: 12px;
-	border: 2px dashed var(--fgTransparent);
+	border: 2px dashed var(--MI_THEME-fgTransparent);
 }
 
 .userSelectButtonInner {

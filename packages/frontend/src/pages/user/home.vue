@@ -327,16 +327,6 @@ onMounted(() => {
 									font-weight: bold;
 								}
 							}
-
-							> .add-note-button {
-								background: rgba(0, 0, 0, 0.2);
-								color: #fff;
-								-webkit-backdrop-filter: var(--MI-blur, blur(8px));
-								backdrop-filter: var(--MI-blur, blur(8px));
-								border-radius: 24px;
-								padding: 4px 8px;
-								font-size: 80%;
-							}
 						}
 					}
 				}
@@ -396,43 +386,6 @@ onMounted(() => {
 						border-radius: 999px;
 						margin-right: 4px;
 						padding: 3px 8px;
-					}
-				}
-
-				> .moderationNote {
-					margin: 12px 24px 0 154px;
-				}
-
-				> .memo {
-					margin: 12px 24px 0 154px;
-					background: transparent;
-					color: var(--MI_THEME-fg);
-					border: 1px solid var(--MI_THEME-divider);
-					border-radius: 8px;
-					padding: 8px;
-					line-height: 0;
-
-					> .heading {
-						text-align: left;
-						color: var(--MI_THEME-fgTransparent);
-						line-height: 1.5;
-						font-size: 85%;
-					}
-
-					textarea {
-						margin: 0;
-						padding: 0;
-						resize: none;
-						border: none;
-						outline: none;
-						width: 100%;
-						height: auto;
-						min-height: 0;
-						line-height: 1.5;
-						color: var(--MI_THEME-fg);
-						overflow: hidden;
-						background: transparent;
-						font-family: inherit;
 					}
 				}
 
@@ -611,6 +564,7 @@ onMounted(() => {
 .tl {
 	background: var(--MI_THEME-bg);
 	border-radius: var(--MI-radius);
+	overflow: hidden; // fallback (overflow: clip)
 	overflow: clip;
 }
 

@@ -119,8 +119,8 @@ onUnmounted(() => {
 
 	&.primary {
 		border: none;
-		background: var(--accent);
-		color: var(--fgOnAccent);
+		background: var(--MI_THEME-accent);
+		color: var(--MI_THEME-fgOnAccent);
 	}
 }
 </style>

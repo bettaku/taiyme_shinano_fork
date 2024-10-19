@@ -22,7 +22,7 @@ const props = defineProps<{
 <style lang="scss" module>
 .root {
 	border-top: solid 0.5px var(--MI_THEME-divider);
-	//border-bottom: solid 0.5px var(--MI_THEME-divider);
+	// border-bottom: solid 0.5px var(--MI_THEME-divider);
 }
 
 .rootFirst {

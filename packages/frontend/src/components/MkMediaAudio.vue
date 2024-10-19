@@ -392,10 +392,11 @@ onDeactivated(() => {
 	--mediaAudio-scale: 1;
 	box-sizing: border-box;
 	position: relative;
-	border: .5px solid var(--MI_THEME-divider);
-	border-radius: var(--MI-radius);
+	width: 100%;
+	height: 100%;
+	overflow: hidden; // fallback (overflow: clip)
 	overflow: clip;
-	border: 0.5px solid var(--divider);
+	border: 0.5px solid var(--MI_THEME-divider);
 	border-radius: var(--mediaList-radius, 8px);
 
 	&:focus-visible {
@@ -470,7 +471,7 @@ onDeactivated(() => {
 
 	.controlButton {
 		padding: 6px;
-		border-radius: calc(var(--MI-radius) / 2);
+		border-radius: calc(var(--mediaList-radius, 8px) / 2);
 		font-size: 1.05rem;
 
 		&:hover {

@@ -4,39 +4,39 @@ SPDX-License-Identifier: AGPL-3.0-only
 -->
 
 <template>
-<MkStickyContainer>
-	<template #header><MkPageHeader v-if="childPageMetadata == null"/></template>
-	<template #default>
-		<div ref="rootEl" :class="[$style.root, { [$style.wide]: isWide }]">
-			<div v-if="showNav" :class="$style.navRoot">
-				<MkSpacer :contentMax="700" :marginMin="16">
-					<div class="_gaps_m">
-						<div>
-							<img :src="instance.iconUrl || '/favicon.ico'" alt="" :class="$style.serverIcon"/>
-						</div>
+	<MkStickyContainer>
+		<template #header><MkPageHeader v-if="childPageMetadata == null"/></template>
+		<template #default>
+			<div ref="rootEl" :class="[$style.root, { [$style.wide]: isWide }]">
+				<div v-if="showNav" :class="$style.navRoot">
+					<MkSpacer :contentMax="700" :marginMin="16">
+						<div class="_gaps_m">
+							<div>
+								<img :src="instance.iconUrl || '/favicon.ico'" alt="" :class="$style.serverIcon"/>
+							</div>
 
-						<div :class="[$style.navInfoList, '_gaps_s']">
-							<MkInfo v-if="thereIsUnresolvedAbuseReport" warn>{{ i18n.ts.thereIsUnresolvedAbuseReportWarning }} <MkA to="/admin/abuses" class="_link">{{ i18n.ts.check }}</MkA></MkInfo>
-							<MkInfo v-if="noMaintainerInformation" warn>{{ i18n.ts.noMaintainerInformationWarning }} <MkA to="/admin/settings" class="_link">{{ i18n.ts.configure }}</MkA></MkInfo>
-							<MkInfo v-if="noInquiryUrl" warn>{{ i18n.ts.noInquiryUrlWarning }} <MkA to="/admin/moderation" class="_link">{{ i18n.ts.configure }}</MkA></MkInfo>
-							<MkInfo v-if="noBotProtection" warn>{{ i18n.ts.noBotProtectionWarning }} <MkA to="/admin/security" class="_link">{{ i18n.ts.configure }}</MkA></MkInfo>
-							<MkInfo v-if="noEmailServer" warn>{{ i18n.ts.noEmailServerWarning }} <MkA to="/admin/email-settings" class="_link">{{ i18n.ts.configure }}</MkA></MkInfo>
-						</div>
+							<div :class="[$style.navInfoList, '_gaps_s']">
+								<MkInfo v-if="thereIsUnresolvedAbuseReport" warn>{{ i18n.ts.thereIsUnresolvedAbuseReportWarning }} <MkA to="/admin/abuses" class="_link">{{ i18n.ts.check }}</MkA></MkInfo>
+								<MkInfo v-if="noMaintainerInformation" warn>{{ i18n.ts.noMaintainerInformationWarning }} <MkA to="/admin/settings" class="_link">{{ i18n.ts.configure }}</MkA></MkInfo>
+								<MkInfo v-if="noInquiryUrl" warn>{{ i18n.ts.noInquiryUrlWarning }} <MkA to="/admin/moderation" class="_link">{{ i18n.ts.configure }}</MkA></MkInfo>
+								<MkInfo v-if="noBotProtection" warn>{{ i18n.ts.noBotProtectionWarning }} <MkA to="/admin/security" class="_link">{{ i18n.ts.configure }}</MkA></MkInfo>
+								<MkInfo v-if="noEmailServer" warn>{{ i18n.ts.noEmailServerWarning }} <MkA to="/admin/email-settings" class="_link">{{ i18n.ts.configure }}</MkA></MkInfo>
+							</div>
 
-						<TmsSuperMenu :def="menuDef" :wideMode="isWide"></TmsSuperMenu>
+							<TmsSuperMenu :def="menuDef" :wideMode="isWide"></TmsSuperMenu>
+						</div>
+					</MkSpacer>
+				</div>
+				<div v-if="showMain" :class="$style.mainRoot">
+					<div style="container-type: inline-size;">
+						<RouterView nested/>
 					</div>
-				</MkSpacer>
-			</div>
-			<div v-if="showMain" :class="$style.mainRoot">
-				<div style="container-type: inline-size;">
-					<RouterView nested/>
 				</div>
 			</div>
-		</div>
-		<MkFooterSpacer v-if="!isWide"/>
+			<MkFooterSpacer v-if="!isWide"/>
+		</template>
+	</MkStickyContainer>
 	</template>
-</MkStickyContainer>
-</template>
 
 <script lang="ts" setup>
 import { computed, onActivated, onMounted, onUnmounted, ref, shallowRef, watch } from 'vue';
@@ -375,10 +375,14 @@ function adminLookup(ev: MouseEvent) {
 			width: 32%;
 			height: 100%;
 			max-width: 280px;
-			box-sizing: border-box;
-			border-right: solid 0.5px var(--MI_THEME-divider);
 			overflow: auto;
-			height: 100%;
+			border-right: solid 0.5px var(--MI_THEME-divider);
+			box-sizing: border-box;
+
+			@supports (height: 100cqh) {
+				overflow-y: scroll;
+				overscroll-behavior: contain;
+			}
 		}
 
 		> .mainRoot {

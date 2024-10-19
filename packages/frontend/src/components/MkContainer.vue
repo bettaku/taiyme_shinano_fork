@@ -202,37 +202,41 @@ onUnmounted(() => {
 
 .content {
 	--MI-stickyTop: 0px;
+}
 
-	&.omitted {
-		position: relative;
-		max-height: var(--maxHeight);
-		overflow: hidden;
+.omitted {
+	position: relative;
+	min-height: 64px; // .showMoreFade
+	max-height: var(--maxHeight);
+	overflow: hidden; // fallback (overflow: clip)
+	overflow: clip;
+}
 
-		> .fade {
-			display: block;
-			position: absolute;
-			z-index: 10;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			height: 64px;
-			background: linear-gradient(0deg, var(--MI_THEME-panel), color(from var(--MI_THEME-panel) srgb r g b / 0));
+.showMoreFade {
+	display: block;
+	position: absolute;
+	z-index: 10;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 64px; // .omitted
+	background: linear-gradient(0deg, var(--MI_THEME-panel), color(from var(--MI_THEME-panel) srgb r g b / 0));
+}
 
-			> .fadeLabel {
-				display: inline-block;
-				background: var(--MI_THEME-panel);
-				padding: 6px 10px;
-				font-size: 0.8em;
-				border-radius: 999px;
-				box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
-			}
-
-			&:hover {
-				> .fadeLabel {
-					background: var(--MI_THEME-panelHighlight);
-				}
-			}
+.showMoreFade {
+	&:hover {
+		> .fadeLabel {
+			background: var(--MI_THEME-panelHighlight);
 		}
+	}
+
+	> .fadeLabel {
+		display: inline-block;
+		background: var(--MI_THEME-panel);
+		padding: 6px 10px;
+		font-size: 0.8em;
+		border-radius: 999px;
+		box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
 	}
 }
 

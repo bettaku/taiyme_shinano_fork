@@ -22,8 +22,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, provide, inject, Ref, ref, watch, useTemplateRef } from 'vue';
-
+import { Ref, onMounted, onUnmounted, provide, inject, ref, watch, useTemplateRef } from 'vue';
+import { throttle } from 'throttle-debounce';
 import { CURRENT_STICKY_BOTTOM, CURRENT_STICKY_TOP } from '@@/js/const.js';
 
 const rootEl = useTemplateRef('rootEl');
@@ -40,7 +40,7 @@ const childStickyBottom = ref(0);
 const parentStickyBottom = inject<Ref<number>>(CURRENT_STICKY_BOTTOM, ref(0));
 provide(CURRENT_STICKY_BOTTOM, childStickyBottom);
 
-const calc = () => {
+const calc = throttle(100, () => {
 	// コンポーネントが表示されてないけどKeepAliveで残ってる場合などは null になる
 	if (headerEl.value != null) {
 		childStickyTop.value = parentStickyTop.value + headerEl.value.offsetHeight;
@@ -52,12 +52,10 @@ const calc = () => {
 		childStickyBottom.value = parentStickyBottom.value + footerEl.value.offsetHeight;
 		footerHeight.value = footerEl.value.offsetHeight.toString();
 	}
-};
+});
 
-const observer = new ResizeObserver(() => {
-	window.setTimeout(() => {
-		calc();
-	}, 100);
+const ro = new ResizeObserver(() => {
+	calc();
 });
 
 onMounted(() => {
@@ -66,16 +64,16 @@ onMounted(() => {
 	watch([parentStickyTop, parentStickyBottom], calc);
 
 	if (headerEl.value != null) {
-		observer.observe(headerEl.value);
+		ro.observe(headerEl.value);
 	}
 
 	if (footerEl.value != null) {
-		observer.observe(footerEl.value);
+		ro.observe(footerEl.value);
 	}
 });
 
 onUnmounted(() => {
-	observer.disconnect();
+	ro.disconnect();
 });
 
 defineExpose({
@@ -83,7 +81,7 @@ defineExpose({
 });
 </script>
 
-<style lang='scss' module>
+<style lang="scss" module>
 .body {
 	position: relative;
 	z-index: 0;

@@ -67,9 +67,8 @@ $bodyInfoHieght: 16px;
 	display: flex;
 	align-items: center;
 	padding: 16px;
-	background: var(--MI_THEME-panel);
 	border-radius: 8px;
-	background-color: var(--panel);
+	background-color: var(--MI_THEME-panel);
 
 	&.isSilenced,
 	&.isSuspended {
@@ -88,21 +87,21 @@ $bodyInfoHieght: 16px;
 	&,
 	html[data-color-scheme=light] & {
 		&.isSilenced {
-			--c: color(from color-mix(in srgb, var(--panel), blue 50%) srgb r g b / 0.25);
+			--c: color(from color-mix(in srgb, var(--MI_THEME-panel), blue 50%) srgb r g b / 0.25);
 		}
 
 		&.isSuspended {
-			--c: color(from color-mix(in srgb, var(--panel), black 15%) srgb r g b / 0.25);
+			--c: color(from color-mix(in srgb, var(--MI_THEME-panel), black 15%) srgb r g b / 0.25);
 		}
 	}
 
 	html[data-color-scheme=dark] & {
 		&.isSilenced {
-			--c: color(from color-mix(in srgb, var(--panel), blue 50%) srgb r g b / 0.5);
+			--c: color(from color-mix(in srgb, var(--MI_THEME-panel), blue 50%) srgb r g b / 0.5);
 		}
 
 		&.isSuspended {
-			--c: color(from color-mix(in srgb, var(--panel), white 15%) srgb r g b / 0.5);
+			--c: color(from color-mix(in srgb, var(--MI_THEME-panel), white 15%) srgb r g b / 0.5);
 		}
 	}
 }

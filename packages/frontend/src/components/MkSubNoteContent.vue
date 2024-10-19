@@ -49,36 +49,51 @@ const collapsed = ref(isLong);
 <style lang="scss" module>
 .root {
 	overflow-wrap: break-word;
+}
 
-	&.collapsed {
-		position: relative;
-		max-height: 9em;
-		overflow: clip;
+.collapsed {
+	position: relative;
+	min-height: 64px; // .showMoreFade
+	max-height: 9em;
+	overflow: hidden; // fallback (overflow: clip)
+	overflow: clip;
+}
 
-		> .fade {
-			display: block;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			height: 64px;
-			background: linear-gradient(0deg, var(--MI_THEME-panel), color(from var(--MI_THEME-panel) srgb r g b / 0));
+.showMoreFade {
+	display: block;
+	position: absolute;
+	z-index: 10;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 64px; // .collapsed
+	background: linear-gradient(0deg, var(--MI_THEME-panel), color(from var(--MI_THEME-panel) srgb r g b / 0));
+}
 
-			> .fadeLabel {
-				display: inline-block;
-				background: var(--MI_THEME-panel);
-				padding: 6px 10px;
-				font-size: 0.8em;
-				border-radius: 999px;
-				box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
-			}
+.showLessFade {
+	display: block;
+	position: sticky;
+	z-index: 10;
+	bottom: var(--MI-stickyBottom, 0px);
+	width: 100%;
+	height: 64px;
+}
 
-			&:hover {
-				> .fadeLabel {
-					background: var(--MI_THEME-panelHighlight);
-				}
-			}
+.showMoreFade,
+.showLessFade {
+	&:hover {
+		> .fadeLabel {
+			background: var(--MI_THEME-panelHighlight);
 		}
+	}
+
+	> .fadeLabel {
+		display: inline-block;
+		background: var(--MI_THEME-panel);
+		padding: 6px 10px;
+		font-size: 0.8em;
+		border-radius: 999px;
+		box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
 	}
 }
 
@@ -93,19 +108,7 @@ const collapsed = ref(isLong);
 	color: var(--MI_THEME-renote);
 }
 
-.showLess {
-	width: 100%;
-	margin-top: 14px;
-	position: sticky;
-	bottom: calc(var(--MI-stickyBottom, 0px) + 14px);
-}
-
-.showLessLabel {
-	display: inline-block;
-	background: var(--MI_THEME-popup);
-	padding: 6px 10px;
-	font-size: 0.8em;
-	border-radius: 999px;
-	box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+.poll {
+	font-size: 80%;
 }
 </style>

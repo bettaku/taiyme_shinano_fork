@@ -64,28 +64,13 @@ const toggle = () => {
 	display: flex;
 	user-select: none;
 
-	&:hover {
-		> .button {
-			border-color: var(--MI_THEME-inputBorderHover) !important;
-		}
+	&:focus-visible {
+		outline-offset: 2px;
 	}
 
 	&.disabled {
 		opacity: 0.6;
 		cursor: not-allowed;
-	}
-}
-
-.input {
-	position: absolute;
-	width: 0;
-	height: 0;
-	opacity: 0;
-	margin: 0;
-
-	&:focus-visible ~ .toggle {
-		outline: 2px solid var(--MI_THEME-focus);
-		outline-offset: 2px;
 	}
 }
 

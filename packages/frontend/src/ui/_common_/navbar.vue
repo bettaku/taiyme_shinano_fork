@@ -143,38 +143,8 @@ function more(ev: MouseEvent) {
 		backdrop-filter: var(--MI-blur, blur(8px));
 	}
 
-	.banner {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-size: cover;
-		background-position: center center;
-		-webkit-mask-image: linear-gradient(0deg, rgba(0,0,0,0) 15%, rgba(0,0,0,0.75) 100%);
-		mask-image: linear-gradient(0deg, rgba(0,0,0,0) 15%, rgba(0,0,0,0.75) 100%);
-	}
-
-	.instance {
-		position: relative;
-		display: block;
-		text-align: center;
-		width: 100%;
-
-		&:focus-visible {
-			outline: none;
-
-			> .instanceIcon {
-				outline: 2px solid var(--MI_THEME-focus);
-				outline-offset: 2px;
-			}
-		}
-	}
-
-	.instanceIcon {
-		display: inline-block;
-		width: 38px;
-		aspect-ratio: 1;
+	.serverLogo {
+		--tmsServerLogo-padding: 20px 17px;
 	}
 
 	.bottom {
@@ -234,38 +204,8 @@ function more(ev: MouseEvent) {
 		position: relative;
 	}
 
-	.account {
-		position: relative;
-		display: flex;
-		align-items: center;
-		padding: 20px 0 20px 30px;
-		width: 100%;
-		text-align: left;
-		box-sizing: border-box;
-		overflow: clip;
-
-		&:focus-visible {
-			outline: none;
-
-			> .avatar {
-				box-shadow: 0 0 0 4px var(--MI_THEME-focus);
-			}
-		}
-	}
-
-	.avatar {
-		display: block;
-		flex-shrink: 0;
-		position: relative;
-		width: 32px;
-		aspect-ratio: 1;
-		margin-right: 8px;
-	}
-
-	.acct {
-		display: block;
-		flex-shrink: 1;
-		padding-right: 8px;
+	.accountButton {
+		--tmsAccountButton-padding: 20px 17px;
 	}
 
 	.middle {
@@ -290,13 +230,16 @@ function more(ev: MouseEvent) {
 		box-sizing: border-box;
 		color: var(--MI_THEME-navFg);
 
-		&:hover {
-			text-decoration: none;
-			color: var(--MI_THEME-navHoverFg);
-		}
-
-		&.active {
-			color: var(--MI_THEME-navActive);
+		&::before {
+			content: "";
+			display: block;
+			width: calc(100% - 34px);
+			height: 100%;
+			margin: auto;
+			position: absolute;
+			inset: 0;
+			border-radius: 999px;
+			background: transparent;
 		}
 
 		&:focus-visible {
@@ -308,21 +251,11 @@ function more(ev: MouseEvent) {
 			}
 		}
 
-		&:hover, &.active, &:focus {
+		&:hover, &.active {
+			text-decoration: none;
 			color: var(--MI_THEME-accent);
 
 			&::before {
-				content: "";
-				display: block;
-				width: calc(100% - 34px);
-				height: 100%;
-				margin: auto;
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				border-radius: 999px;
 				background: var(--MI_THEME-accentedBg);
 			}
 		}
@@ -372,25 +305,8 @@ function more(ev: MouseEvent) {
 		backdrop-filter: var(--MI-blur, blur(8px));
 	}
 
-	.instance {
-		display: block;
-		text-align: center;
-		width: 100%;
-
-		&:focus-visible {
-			outline: none;
-
-			> .instanceIcon {
-				outline: 2px solid var(--MI_THEME-focus);
-				outline-offset: 2px;
-			}
-		}
-	}
-
-	.instanceIcon {
-		display: inline-block;
-		width: 30px;
-		aspect-ratio: 1;
+	.serverLogo {
+		--tmsServerLogo-padding: 20px 0px;
 	}
 
 	.bottom {
@@ -446,30 +362,8 @@ function more(ev: MouseEvent) {
 		display: none;
 	}
 
-	.account {
-		display: block;
-		text-align: center;
-		padding: 20px 0;
-		width: 100%;
-		overflow: clip;
-
-		&:focus-visible {
-			outline: none;
-
-			> .avatar {
-				box-shadow: 0 0 0 4px var(--MI_THEME-focus);
-			}
-		}
-	}
-
-	.avatar {
-		display: inline-block;
-		width: 38px;
-		aspect-ratio: 1;
-	}
-
-	.acct {
-		display: none;
+	.accountButton {
+		--tmsAccountButton-padding: 20px 0px;
 	}
 
 	.middle {
@@ -515,17 +409,6 @@ function more(ev: MouseEvent) {
 			color: var(--MI_THEME-accent);
 
 			&::before {
-				content: "";
-				display: block;
-				height: 100%;
-				aspect-ratio: 1;
-				margin: auto;
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				border-radius: 999px;
 				background: var(--MI_THEME-accentedBg);
 			}
 

@@ -124,6 +124,15 @@ function more() {
 		background: linear-gradient(90deg, var(--MI_THEME-buttonGradateA), var(--MI_THEME-buttonGradateB));
 	}
 
+	&:focus-visible {
+		outline: none;
+
+		&::before {
+			outline: 2px solid var(--MI_THEME-focus);
+			outline-offset: -4px;
+		}
+	}
+
 	&:hover, &.active {
 		&::before {
 			background: var(--MI_THEME-accentLighten);
@@ -164,28 +173,32 @@ function more() {
 	box-sizing: border-box;
 	color: var(--MI_THEME-navFg);
 
-	&:hover {
-		text-decoration: none;
-		color: var(--MI_THEME-navHoverFg);
+	&::before {
+		content: "";
+		display: block;
+		width: calc(100% - 24px);
+		height: 100%;
+		margin: auto;
+		position: absolute;
+		inset: 0;
+		border-radius: 999px;
+		background: transparent;
 	}
 
-	&.active {
-		color: var(--MI_THEME-navActive);
+	&:focus-visible {
+		outline: none;
+
+		&::before {
+			outline: 2px solid var(--MI_THEME-focus);
+			outline-offset: -2px;
+		}
 	}
 
 	&:hover, &.active {
+		text-decoration: none;
+		color: var(--MI_THEME-accent);
+
 		&::before {
-			content: "";
-			display: block;
-			width: calc(100% - 24px);
-			height: 100%;
-			margin: auto;
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			border-radius: 999px;
 			background: var(--MI_THEME-accentedBg);
 		}
 	}

@@ -121,7 +121,6 @@ function reduceFrequency(): void {
 
 <style lang="scss" module>
 .root {
-
 }
 
 .main {

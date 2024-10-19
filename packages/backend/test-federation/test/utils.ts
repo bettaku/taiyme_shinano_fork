@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: syuilo and misskey-project
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 import { deepStrictEqual, strictEqual } from 'assert';
 import { readFile } from 'fs/promises';
 import { dirname, join } from 'path';

@@ -220,7 +220,7 @@ onMounted(() => {
 
 	&.wallpaper {
 		background: var(--MI_THEME-wallpaperOverlay);
-		//backdrop-filter: var(--MI-blur, blur(4px));
+		// backdrop-filter: var(--MI-blur, blur(4px));
 	}
 
 	> .columns {
@@ -261,7 +261,7 @@ onMounted(() => {
 		}
 
 		> .widgets {
-			//--MI_THEME-panelBorder: none;
+			// --MI_THEME-panelBorder: none;
 			width: 300px;
 			padding-bottom: calc(var(--MI-margin) + env(safe-area-inset-bottom, 0px));
 

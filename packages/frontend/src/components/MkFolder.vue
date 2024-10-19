@@ -113,7 +113,7 @@ function toggle() {
 
 onMounted(() => {
 	const computedStyle = getComputedStyle(document.documentElement);
-	const parentBg = getBgColor(rootEl.value!.parentElement!);
+	const parentBg = getBgColor(rootEl.value?.parentElement) ?? 'transparent';
 	const myBg = computedStyle.getPropertyValue('--MI_THEME-panel');
 	bgSame.value = parentBg === myBg;
 });
@@ -140,7 +140,7 @@ onMounted(() => {
 	align-items: center;
 	width: 100%;
 	box-sizing: border-box;
-	padding: 9px 12px 9px 12px;
+	padding: 10px 14px;
 	background: var(--MI_THEME-folderHeaderBg);
 	-webkit-backdrop-filter: var(--MI-blur, blur(15px));
 	backdrop-filter: var(--MI-blur, blur(15px));
@@ -167,22 +167,11 @@ onMounted(() => {
 	}
 }
 
-.headerUpper {
-	display: flex;
-	align-items: center;
-}
-
-.headerLower {
-	color: var(--MI_THEME-fgTransparentWeak);
-	font-size: .85em;
-	padding-left: 4px;
-}
-
 .headerIcon {
 	margin-right: 0.75em;
 	flex-shrink: 0;
 	text-align: center;
-	color: var(--fgTransparentWeak);
+	color: var(--MI_THEME-fgTransparentWeak);
 
 	&:empty {
 		display: none;
@@ -240,13 +229,11 @@ onMounted(() => {
 	background: var(--MI_THEME-acrylicBg);
 	-webkit-backdrop-filter: var(--MI-blur, blur(15px));
 	backdrop-filter: var(--MI-blur, blur(15px));
-	background-size: auto auto;
-	background-image: repeating-linear-gradient(135deg, transparent, transparent 5px, var(--MI_THEME-panel) 5px, var(--MI_THEME-panel) 10px);
 	border-radius: 0 0 6px 6px;
 	background-image: repeating-linear-gradient(
 		135deg,
 		transparent 0px 10px,
-		var(--panel) 6px 16px
+		var(--MI_THEME-panel) 6px 16px
 	);
 
 	// NOTE: iOS/iPadOS環境でクラッシュする https://github.com/taiyme/misskey/issues/293

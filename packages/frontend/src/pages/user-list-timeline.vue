@@ -99,6 +99,7 @@ definePageMetadata(() => ({
 .tl {
 	background: var(--MI_THEME-bg);
 	border-radius: var(--MI-radius);
+	overflow: hidden; // fallback (overflow: clip)
 	overflow: clip;
 }
 </style>
