@@ -346,7 +346,7 @@ export default function (props: MfmProps, { emit }: { emit: SetupContext<MfmEven
 								menuCode: token.children[0].props.text,
 							});
 						} else {
-							return genEl(token.children, scale);
+							return genEl(token.children, { scale, disableNyaize, disableRjNumber });
 						}
 					}
 				}
